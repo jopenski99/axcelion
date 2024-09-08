@@ -1,5 +1,5 @@
 <template>
-    <q-card class="q-pa-md">
+    <q-card class="q-pa-md  full-width">
         <q-card-section>
           <div class="text-h6">Use Camera</div>
           <video v-show="stream" ref="video" class="full-width" autoplay @canplay="onVideoLoaded"
