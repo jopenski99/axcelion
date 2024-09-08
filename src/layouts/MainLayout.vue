@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+         Axcelion tech
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>v0.1 - aplha</div>
       </q-toolbar>
     </q-header>
 
