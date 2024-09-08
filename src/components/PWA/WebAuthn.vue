@@ -11,7 +11,7 @@
   </q-card>
 </template>
 
-<script>
+<script> 
 export default {
   name: 'WebAuthn',
   data() {
