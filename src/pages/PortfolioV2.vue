@@ -2,22 +2,31 @@
   <div class="row">
     <div class="col-12">
       <div class="row">
-        <div class="col-4">
+        <div class="col-12 col-sm-6 col-md-4 ">
           <q-card class="q-pa-xs q-pl-md full-width row items-center justify-between" style="border-radius: 15px">
             <span style="font-size: 1.1rem">{{ name }}</span>
             <q-btn round flat dense icon="contrast" @click="$q.dark.toggle()" />
           </q-card>
-          <q-card class="q-mt-md q-pa-md full-width row items-center justify-between">
-            <div class="col-4" >
-              <q-img src="https://cdn.quasar.dev/img/avatar.png" style="width: 90%; height: 90%; border-radius: 10%" />
+          <q-card class="q-mt-md q-pa-md full-width row items-start justify-center" style="border-radius: 15px">
+            <div class="col-12" style="text-align: right"> <span style="font-size: 1.1rem;">{{ currentTime }}</span>
             </div>
-            <div class="col-8 q-pa-xs" style="text-align: right">
-              <span style="font-size: 1.1rem;">{{ currentTime }}</span>
-              <q-card class="q-pa-sm full-width"  style="border: 1px solid #1976d2; box-shadow: none">
+            <div class="col-12 col-md-5 text-center justify-center">
+              <div class="row full-width q-py-sm q-px-md">
+                <q-img src="/2.jpg"  style="width: 100%; height: 90%; border-radius: 10%" />
+              </div>
+              <div class="row q-pt-md q-pl-md justify-start items-center">
+                <div class="pingdot "></div>
+                <span class="q-ml-md" style="font-size: 0.9rem; font-family: 'OCR A';">Seeking opportunities</span>
+              </div>
+            </div>
+            <div class="col-12 col-md-7 q-pa-xs flex" style="align-content: end;
+    height: 230px;">
+              <q-card class="q-pa-sm full-width" style="border: 1px solid #1976d2; box-shadow: none;border-radius: 15px">
                 <div class="row">
-                  <div class="col-3" style="text-align: center" >
-                    <q-avatar class="full-width q-py-md" size="55px" style="height: 100%; display: flex; align-items: center; justify-content: center; border-radius: 10%; border: 1px solid #1976d2;">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none"
+                  <div class="col-3 items-center justify-center" style="text-align: center; ">
+                    <q-avatar
+                      style="border-radius: 15px; justify-self:center; display: flex; align-items: center; justify-content: center; border-radius: 10%; border: 1px solid #1976d2; width:60px;height:60px;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-github size-10 lg:size-6 xl:size-8">
                         <path
@@ -29,12 +38,41 @@
                     </q-avatar>
                   </div>
                   <div class="col-8 q-pl-sm" style="text-align: left">
-                    <div class="text-caption">Latest commit: <a :href="latestCommitUrl" target="_blank" style="color: currentColor">{{ latestCommitHash }}</a></div>
+                    <div class="text-caption">Latest commit: <a :href="latestCommitUrl" target="_blank"
+                        style="color: currentColor">{{ latestCommitHash }}</a></div>
                     <div class="text-caption text-bold">{{ latestCommitMessage }}</div>
-                    <div>By: <a href="https://github.com/jopenski99" target="_blank" style="color: currentColor">{{lastContributor}}</a> </div>
+                    <div>By: <a href="https://github.com/jopenski99" target="_blank" style="color: currentColor">{{
+                      lastContributor }}</a> </div>
                   </div>
                 </div>
               </q-card>
+              <div class="q-mt-sm full-width" style="    height: 80px !important;">
+                <iframe style="border-radius:12px"
+                  src="https://open.spotify.com/embed/track/1RKUoGiLEbcXN4GY4spQDx?utm_source=generator" width="100%"
+                  height="145" frameBorder="0" allowfullscreen=""
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"></iframe>
+              </div>
+            </div>
+            <div class="col-12 q-pt-md q-pa-md">
+              <p class="text-justify" style="font-size: 1rem">
+                I'm a <a href="https://en.wikipedia.org/wiki/Web_developer" class="text-bold"
+                  style="color: #1976d2; text-decoration: none;">web developer</a> who loves to build and maintain web
+                applications. I'm passionate about using the
+                latest technologies and following best practices to ensure my code is clean and maintainable. I'm always
+                looking to learn new things and improve my skills. Making sure that clients are satisfied.</p>
+            </div>
+          </q-card>
+          <q-card class="q-pa-xs q-pl-md full-width row items-center justify-between" style="border-radius: 15px">
+            <div class="row q-col-gutter-x-md q-col-gutter-y-xs">
+              <div v-for="(lang, index) in languagesWithThemeColor" :key="index" class="col-auto">
+                <q-btn class=" q-pa-sm" :href="lang.link" rounded target="_blank" dense flat unelevated :style="'background-color: '+lang.color+';'">
+                  <svg width="30" height="30" viewBox="0 0 24 24" :fill="lang.logo_color">
+                    <use :xlink:href="lang.logo" />
+                  </svg>
+                  <div class="q-ml-sm">{{ lang.name }}</div>
+                </q-btn>
+              </div>
             </div>
           </q-card>
         </div>
@@ -55,7 +93,108 @@ export default {
       latestCommitUrl: '',
       latestCommitHash: '',
       latestCommitMessage: '',
-      lastContributor: ''
+      lastContributor: '',
+      languages: [
+        //change the logo link of the array refer to the /public/scg folder except for vuejs, laravel, quasar mysql
+        {
+          id: 7,
+          name: 'Vue.js',
+          logo: '/public/svg/vuejs.svg',
+          color: '#FFFFFF',
+          link: 'https://vuejs.org/'
+        },
+        {
+          id: 8,
+          name: 'Laravel',
+          logo: '/public/svg/laravel.svg',
+          color: '#FFFFFF',
+          link: 'https://laravel.com/'
+        },
+        {
+          id: 9,
+          name: 'Node.js',
+          logo: '/public/svg/nodejs.svg',
+          color: '#FFFFFF',
+          link: 'https://nodejs.org/'
+        },
+        {
+          id: 10,
+          name: 'Quasar',
+          logo: '/public/svg/quasar-svgrepo-com.svg',
+          color: '#FFFFFF',
+          link: 'https://quasar.dev/'
+        },
+        {
+          id: 11,
+          name: 'MySQL',
+          logo: '/public/svg/mysql-svgrepo-com.svg',
+          color: '#FFFFFF',
+          link: 'https://www.mysql.com/'
+        },
+        {
+          id: 12,
+          name: 'PostgreSQL',
+          logo: '/public/svg/postgresql-svgrepo-com.svg',
+          color: '#FFFFFF',
+          link: 'https://www.postgresql.org/'
+        },
+        {
+          id: 13,
+          name: 'PWA',
+          logo: '/public/svg/pwa.svg',
+          color: '#FFFFFF',
+          link: 'https://developers.google.com/web/progressive-web-apps'
+        },
+        {
+          id: 14,
+          name: 'AWS Amplify',
+          logo: '/public/svg/aws_amplify.svg',
+          color: '#FFFFFF',
+          link: 'https://aws.amazon.com/amplify/'
+        },
+        {
+          id: 15,
+          name: 'AWS Lambda',
+          logo: '/public/svg/aws_lambda.svg',
+          color: '#FFFFFF',
+          link: 'https://aws.amazon.com/lambda/'
+        },
+        {
+          id: 16,
+          name: 'AWS API Gateway',
+          logo: '/public/svg/aws_api_gateway.svg',
+          color: '#FFFFFF',
+          link: 'https://aws.amazon.com/api-gateway/'
+        },
+        {
+          id: 17,
+          name: 'AWS IAM',
+          logo: '/public/svg/aws_iam.svg',
+          color: '#FFFFFF',
+          link: 'https://aws.amazon.com/iam/'
+        },
+        {
+          id: 18,
+          name: 'AWS Cognito',
+          logo: '/public/svg/aws_cognito.svg',
+          color: '#FFFFFF',
+          link: 'https://aws.amazon.com/cognito/'
+        },
+        {
+          id: 19,
+          name: 'AWS CodePipeline',
+          logo: '/public/svg/aws_codepipeline.svg',
+          color: '#FFFFFF',
+          link: 'https://aws.amazon.com/codepipeline/'
+        },
+        {
+          id: 20,
+          name: 'AWS CodeCommit',
+          logo: '/public/svg/aws_codecommit.svg',
+          color: '#FFFFFF',
+          link: 'https://aws.amazon.com/codecommit/'
+        },
+      ]
     }
   },
   mounted() {
@@ -63,6 +202,17 @@ export default {
       this.currentTime = new Date().toLocaleTimeString();
     }, 1000);
     this.getLatestCommit();
+  },
+  computed: {
+    languagesWithThemeColor() {
+      return this.languages.map(language => {
+        return {
+          ...language,
+          color: this.$q.dark.isActive ? '#333' : '#FFF',
+          logo_color : !this.$q.dark.isActive ? '#333' : '#FFF'
+        }
+      })
+    },
   },
   methods: {
     getLatestCommit() {
@@ -82,4 +232,3 @@ export default {
   }
 }
 </script>
-
