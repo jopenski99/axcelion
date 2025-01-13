@@ -1,48 +1,8 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="bg-burning-horizontal" >
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
-        <q-toolbar-title>
-         Axcelion tech
-        </q-toolbar-title>
-
-        <div>v0.1 - aplha</div>
-      </q-toolbar>
-    </q-header>
-
-    <!-- <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer> -->
-
-    <q-page-container style="padding-top:30px;">
-      <router-view />
-    </q-page-container>
-  </q-layout>
+  <div class="q-pa-md">
+    <router-view />
+  </div>
+ 
 </template>
 
 <script>
