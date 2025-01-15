@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <div class="row">
+      <div class="row" :class="{ 'q-col-gutter-x-md': $q.screen.gt.md }">
         <div class="col-12 col-sm-6 col-md-4 ">
           <q-card class="q-pa-xs q-pl-md full-width row items-center justify-between" style="border-radius: 15px">
             <span style="font-size: 1.1rem">{{ name }}</span>
@@ -12,7 +12,7 @@
             </div>
             <div class="col-12 col-md-5 text-center justify-center">
               <div class="row full-width q-py-sm q-px-md">
-                <q-img src="/2.jpg"  style="width: 100%; height: 90%; border-radius: 10%" />
+                <q-img src="/2.jpg" style="width: 100%; height: 90%; border-radius: 10%" />
               </div>
               <div class="row q-pt-md q-pl-md justify-start items-center">
                 <div class="pingdot "></div>
@@ -21,7 +21,8 @@
             </div>
             <div class="col-12 col-md-7 q-pa-xs flex" style="align-content: end;
     height: 230px;">
-              <q-card class="q-pa-sm full-width" style="border: 1px solid #1976d2; box-shadow: none;border-radius: 15px">
+              <q-card class="q-pa-sm full-width"
+                style="border: 1px solid #1976d2; box-shadow: none;border-radius: 15px">
                 <div class="row">
                   <div class="col-3 items-center justify-center" style="text-align: center; ">
                     <q-avatar
@@ -63,17 +64,83 @@
                 looking to learn new things and improve my skills. Making sure that clients are satisfied.</p>
             </div>
           </q-card>
-          <q-card class="q-pa-xs q-pl-md full-width row items-center justify-between" style="border-radius: 15px">
-            <div class="row q-col-gutter-x-md q-col-gutter-y-xs">
-              <div v-for="(lang, index) in languagesWithThemeColor" :key="index" class="col-auto">
-                <q-btn class=" q-pa-sm" :href="lang.link" rounded target="_blank" dense flat unelevated :style="'background-color: '+lang.color+';'">
-                  <svg width="30" height="30" viewBox="0 0 24 24" :fill="lang.logo_color">
-                    <use :xlink:href="lang.logo" />
-                  </svg>
-                  <div class="q-ml-sm">{{ lang.name }}</div>
+          <q-card @click="languageContainerExpand ? languageContainerExpand = false : languageContainerExpand = true"
+            class="q-pa-sm q-mt-md full-width row items-center justify-between" style="border-radius: 15px">
+            <div v-if="!languageContainerExpand" class="full-width row inline no-wrap" style="">
+              <div id='container'>
+                <div class='scroll'>
+                  <div v-for="(lang, index) in languagesWithThemeColor" :key="index" class="col-auto inline-block item">
+                    <q-btn class="q-px-sm" size="sm" :href="lang.link" rounded target="_blank" dense flat unelevated
+                      :style="'background-color: ' + lang.color + ';'">
+                      <img :src="lang.logo" alt=""
+                        style="width: 15px; height: 15px; filter: invert(0); border-radius:25%" />
+                      <div class="q-ml-sm"
+                        :style="'font-size: 0.7rem; color: ' + ($q.dark.isActive ? '#FFF' : '#000') + ';'">{{ lang.name
+                        }}</div>
+                    </q-btn>
+                  </div>
+                </div>
+                <q-tooltip v-if="!languageContainerExpand" content-class="bg-grey-8 text-white" anchor="top middle"
+                  self="bottom middle">
+                  Click to expand
+                </q-tooltip>
+                <div class='fade'
+                  :style="'background: linear-gradient(90deg,' + scrollShadowControl + ',transparent 30%,transparent 90%,' + scrollShadowControl + ');'">
+                </div>
+              </div>
+            </div>
+            <div v-else class="full-width row" style="">
+              <div v-for="(lang, index) in languagesWithThemeColor" :key="index" class="col-auto q-ma-xs">
+                <q-btn class="q-px-sm" size="sm" :href="lang.link" rounded target="_blank" dense flat unelevated
+                  :style="'background-color: ' + lang.color + ';'">
+                  <img :src="lang.logo" alt=""
+                    style="width: 15px; height: 15px; filter: invert(0); border-radius:25%" />
+                  <div class="q-ml-sm"
+                    :style="'font-size: 0.7rem; color: ' + ($q.dark.isActive ? '#FFF' : '#000') + ';'">{{ lang.name }}
+                  </div>
                 </q-btn>
               </div>
             </div>
+            <q-tooltip v-if="languageContainerExpand" content-class="bg-grey-8 text-white" anchor="top middle"
+              self="bottom middle">
+              Click to go back in simple mode
+            </q-tooltip>
+          </q-card>
+          <q-card class="q-mt-md q-mb-md q-pa-xs q-pl-md full-width row items-center justify-between"
+            style="border-radius: 15px">
+            <div class="row-inline q-gutter-x-md">
+              <div class="col-8">
+                <q-btn round flat dense class="q-pa-md q-mx-xs sc-button" href="https://facebook.com/kim.jopen"
+                  target="_blank">
+                  <q-avatar class="sc-icon" id="fb" size="md" font-size="19px" icon="mdi-facebook" />
+                </q-btn>
+                <q-btn round flat dense class="sc-button  q-mx-xs"
+                  href="https://www.linkedin.com/in/john-paul-perez-74a0391b3/" target="_blank">
+                  <q-avatar class="sc-icon" id="li" size="md" font-size="19px" icon="mdi-linkedin" />
+                </q-btn>
+                <q-btn round flat dense class="sc-button  q-mx-xs" href="https://www.instagram.com/kimoy_17/"
+                  target="_blank">
+                  <q-avatar class="sc-icon" id="ig" size="md" font-size="19px" icon="mdi-instagram" />
+                </q-btn>
+                <q-btn round flat dense class="sc-button  q-mx-xs" href="https://github.com/jopenski99" target="_blank">
+                  <q-avatar class="sc-icon" id="gh" size="md" font-size="19px" icon="mdi-github" />
+                </q-btn>
+                <q-btn round flat dense class="sc-button  q-mx-xs"
+                  href="https://open.spotify.com/user/22r4lyy76vu47konrfirev35y" target="_blank">
+                  <q-avatar class="sc-icon" id="sp" size="md" font-size="19px" icon="mdi-spotify" />
+                </q-btn>
+                <q-btn round flat dense class="sc-button  q-mx-xs" href="https://discordapp.com/users/jopenski99"
+                  target="_blank">
+                  <q-avatar class="sc-icon" id="di" round size="md" font-size="20px" icon="mdi-discord" />
+                </q-btn>
+              </div>
+
+            </div>
+          </q-card>
+        </div>
+        <div class="col-12 col-sm-6 col-md-8 ">
+          <q-card class="q-pa-xs q-pl-md full-width row items-center" style="border-radius: 15px">
+            <ProjectsCard />
           </q-card>
         </div>
       </div>
@@ -83,9 +150,10 @@
 
 <script>
 import axios from 'axios'
-
+import ProjectsCard from 'src/components/ProjectsCard.vue';
 export default {
   name: 'PortfolioV2',
+  components: { ProjectsCard },
   data() {
     return {
       currentTime: new Date().toLocaleTimeString(),
@@ -194,7 +262,8 @@ export default {
           color: '#FFFFFF',
           link: 'https://aws.amazon.com/codecommit/'
         },
-      ]
+      ],
+      languageContainerExpand: false,
     }
   },
   mounted() {
@@ -208,11 +277,14 @@ export default {
       return this.languages.map(language => {
         return {
           ...language,
-          color: this.$q.dark.isActive ? '#333' : '#FFF',
-          logo_color : !this.$q.dark.isActive ? '#333' : '#FFF'
+          color: this.$q.dark.isActive ? '#333' : '#bcbcbc',
+          logo_color: !this.$q.dark.isActive ? '#333' : '#FFF'
         }
       })
     },
+    scrollShadowControl() {
+      return this.$q.dark.isActive ? '#1D1D1D' : '#FFF'
+    }
   },
   methods: {
     getLatestCommit() {
@@ -232,3 +304,85 @@ export default {
   }
 }
 </script>
+<style scoped>
+#container {
+  width: 100%;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #fff;
+}
+
+#container .scroll {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: fit-content;
+  white-space: nowrap;
+  animation: loop 30s linear infinite;
+}
+
+.fade {
+  width: 100%;
+  position: absolute;
+  background: linear-gradient(90deg,
+      #000,
+      transparent 30%,
+      transparent 90%,
+      #000);
+  inset: 0;
+  pointer-event: none;
+}
+
+@keyframes loop {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  color: #e2e8f0;
+
+  margin: 0rem 0.1rem;
+  border-radius: 0.4rem;
+  white-space: nowrap;
+  box-shadow:
+    0 0.1rem 0.2rem #00000033,
+    0 0.1rem 0.5rem #0000004d,
+    0 0.2rem 01.5rem #00000066,
+}
+
+.sc-button {
+  #fb:hover {
+    color: #1976d2;
+  }
+
+  #li:hover {
+    color: #0077b5;
+  }
+
+  #ig:hover {
+    color: #e4439e;
+  }
+
+  #gh:hover {
+    color: #1976d2;
+  }
+
+  #sp:hover {
+    color: #1db954;
+  }
+
+  #di:hover {
+    color: #7289da;
+  }
+}
+</style>
