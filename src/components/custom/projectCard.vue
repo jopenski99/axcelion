@@ -1,6 +1,6 @@
 <template>
-    <div class="card">
-        <header class="card-header item-center">
+    <div class="card full-width q-pa-md" @click="project.url ? openURL(project.url) : null" :title="project.url ? null : 'Sadly this site has not been maintained and can\'t be found anymore'">
+        <header class="card-header item-center"  :style="{'background-color': project.backgound_color, borderRadius:'15px'}" >
             <!--  <p>May 3rd 2023</p> -->
             <span class="title">
                 <img :src="project.logo" alt="" style="width:150px; height: 100px; object-fit: contain;">
@@ -14,13 +14,13 @@
                 <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
             </svg>
             <div class="author-name">
-                <div class="author-name-prefix">Author</div> Folarin Lawal
+                <div class="author-name-prefix">{{project.name}}</div> {{ project.location}}
             </div>
         </div>
-        <div class="tags">
-            <a href="#">html</a>
-            <a href="#">css</a>
-            <a href="#">web-dev</a>
+        <div class="tags full-width flex justify-center">
+           <span v-for="tag in project.techs" :key="tag" class="tag" >
+            {{tag}}
+           </span>
         </div>
     </div>
 </template>
@@ -39,7 +39,9 @@ export default {
         };
     },
     methods: {
-        // Define your methods here
+        openURL(url) {
+            window.open(url, '_blank');
+        },
     },
     computed: {
         // Define your computed properties here
@@ -50,15 +52,16 @@ export default {
 <style scoped>
 .card {
     margin:5px;
+
     display: flex;
     position: relative;
     flex-direction: column;
-    height: 300px;
-    width: 190px;
-    min-width: 250px;
-    padding: 1rem;
+    height: 315px;
+    
+    min-width: 200px;
+    padding: 1.5rem 1rem;
     border-radius: 16px;
-    background: #17141d;
+    background: #303030;
    
     transition: .2s;
     font-family: 'Inter', sans-serif;
@@ -78,11 +81,13 @@ export default {
 
 .author-name {
     color: #7a7a8c;
+    font-size: 0.7rem;
 }
 
 .author-name-prefix {
-    color: #e52e71;
+    color: #1976d2;
     font-weight: 600;
+    font-size: 0.8rem;
 }
 
 .author-avatar span {
@@ -92,6 +97,7 @@ export default {
     border-radius: 50%;
     background: #f2f2f2;
     margin: 16px 10px;
+  
 }
 
 .half-circle {
@@ -101,7 +107,7 @@ export default {
     width: 60px;
     height: 48px;
     fill: none;
-    stroke: #ff8a00;
+    stroke: #1976d2;
     stroke-width: 8;
     stroke-linecap: round;
 }
@@ -115,6 +121,7 @@ export default {
     font-size: 14px;
     margin: 0 0 1rem;
     color: #7a7a8c;
+    border-radius:15px;
 }
 
 .card-header .title {
@@ -125,7 +132,7 @@ export default {
 }
 
 .card-header .title:hover {
-    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    background: linear-gradient(90deg, #1976d2, #e52e71);
     text-shadow: none;
     background-clip: text;
     -webkit-background-clip: text;
@@ -139,7 +146,7 @@ export default {
     margin-bottom: 0;
 }
 
-.tags a {
+.tags span {
     font-style: normal;
     font-weight: 700;
     color: #7a7a8c;
@@ -147,12 +154,14 @@ export default {
     font-size: .66rem;
     border: 3px solid #28242f;
     border-radius: 2rem;
-    padding: .2rem .85rem .25rem;
+    padding: .1rem .85rem .1rem;
+    margin:2px;
     position: relative;
+
 }
 
-.tags a:hover {
-    background: linear-gradient(90deg, #ff8a00, #e52e71);
+.tags span:hover {
+    background: linear-gradient(90deg, #1668bb, #30b6ce);
     text-shadow: none;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
