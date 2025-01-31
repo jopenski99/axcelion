@@ -1,8 +1,15 @@
 <template>
     <q-card class="justify-center text-center full-width">
-        <q-card-section class="full-width">
+        
+        <div class="text-center q-mt-md q-mb-md" 
+        :class="{'text-left' : collapsed}" 
+        style="font-size:1.3rem; font-weight:500"> Projects 
+            <span style="background:#1976d2; border-radius:50% ; padding:3px 9px; font-size:0.8rem; margin-top:-10px; position:absolute;">{{projects.length}}</span>
+        </div>
+        <div class="hide-button text-right absolute " @click="collapsed=!collapsed" style="">{{collapsed? 'Show': 'Hide'}}</div>
+        <q-card-section class="full-width" v-if="!collapsed">
             <q-carousel v-model="slide" transition-prev="slide-right" transition-next="slide-left" swipeable animated
-                padding infinite autoplay :navigation="false" height="auto" class="full-width">
+                padding infinite :navigation="true" height="auto" class="full-width">
                 <q-carousel-slide v-for="(group, index) in chunkedProjects" :name="index" :key="index"
                     class="column no-wrap full-width">
                     <div class="row full-width justify-around">
@@ -25,11 +32,17 @@ export default {
     data() {
         return {
             slide: 0,
+
+            collapsed: false,
             projects: [
                 {
                     id: 111,
                     name: 'Surefast',
                     location: 'local',
+                    company: {
+                        name: "Private",
+                        logo_url: null,
+                    },
                     backgound_color: '#fff',
                     logo: '/public/surefast.png',
                     url: null,
@@ -40,6 +53,10 @@ export default {
                 {
                     id: 112,
                     name: 'Jaaims',
+                    company: {
+                        name: "Launcher PTY LTD",
+                        logo_url: '/public/jaaims.png',
+                    },
                     location: 'Sydney, Australia',
                     backgound_color: '#fff',
                     logo: '/public/jaaims.png',
@@ -51,6 +68,10 @@ export default {
                 {
                     id: 113,
                     name: 'Quext',
+                    company: {
+                        name: "Codev",
+                        logo_url: '/public/codev.png',
+                    },
                     location: 'Virginia, USA',
                     backgound_color: '#333',
                     logo: '/public/quext.png',
@@ -62,6 +83,10 @@ export default {
                 {
                     id: 114,
                     name: 'ConX',
+                    company: {
+                        name: "Eversun",
+                        logo_url: '/public/eversun.png',
+                    },
                     location: 'Texas, USA',
                     backgound_color: '#fff',
                     logo: '/public/conx.png',
@@ -73,6 +98,10 @@ export default {
                 {
                     id: 115,
                     name: 'STL',
+                    company: {
+                        name: "Private",
+                        logo_url: null,
+                    },
                     location: 'local',
                     backgound_color: '#fff',
                     logo: '/public/stl.png',
@@ -85,6 +114,10 @@ export default {
                     id: 116,
                     name: 'Wittymanager',
                     location: 'South Korea',
+                    company: {
+                        name: "Posbang Corp",
+                        logo_url: '/public/posbang.png',
+                    },
                     backgound_color: '#fff',
                     logo: '/public/witty.png',
                     url: 'https://www.witty.team/',
@@ -96,6 +129,10 @@ export default {
                     id: 117,
                     name: 'Posbang.com',
                     location: 'local',
+                    company: {
+                        name: "Posbang Corp",
+                        logo_url: '/public/posbang.png',
+                    },
                     backgound_color: '#fff',
                     logo: '/public/posbang.png',
                     url: null,
@@ -106,6 +143,10 @@ export default {
                 {
                     id: 118,
                     name: 'Jaacs',
+                    company: {
+                        name: "Launcher PTY LTD",
+                        logo_url: '/public/jaaims.png',
+                    },
                     location: 'Sydney, Australia',
                     backgound_color: '#fff',
                     logo: '/public/jaacs.png',
@@ -117,6 +158,10 @@ export default {
                 {
                     id: 119,
                     name: 'Sweepz Portal',
+                    company: {
+                        name: "Altitude Games",
+                        logo_url: null,
+                    },
                     location: 'USA & Australia',
                     backgound_color: '#333',
                     logo: '/public/sweepz.png',
@@ -143,3 +188,15 @@ export default {
     },
 };
 </script>
+<style scoped>
+.hide-button:hover{
+    color:#1976d2;
+}
+.hide-button{
+    color:#ffffff;
+    font-size:1rem;
+    font-weight: 500;
+    right:15px; 
+    top:20px;
+}
+</style>

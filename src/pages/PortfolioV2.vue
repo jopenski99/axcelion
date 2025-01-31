@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <div class="row" :class="{ 'q-col-gutter-x-md': $q.screen.gt.md }">
+      <div class="row" :class="{ 'q-col-gutter-x-md': $q.screen.gt.md || $q.screen.gt.sm || $q.screen.gt.xs, }">
         <div class="col-12 col-sm-6 col-md-4 ">
           <q-card class="q-pa-xs q-pl-md full-width row items-center justify-between" style="border-radius: 15px">
             <span style="font-size: 1.1rem">{{ name }}</span>
@@ -108,292 +108,368 @@
           </q-card>
           <q-card class="q-mt-md q-mb-md q-pa-xs q-pl-md full-width row items-center justify-between"
             style="border-radius: 15px">
-            <div class="row-inline q-gutter-x-md">
+            <div class="row full-width q-gutter-x-md items-center q-ma-xs">
+              <div class="col-1">Socials</div>
               <div class="col-8">
-                <q-btn round flat dense class="q-pa-md q-mx-xs sc-button" href="https://facebook.com/kim.jopen"
-                  target="_blank">
-                  <q-avatar class="sc-icon" id="fb" size="md" font-size="19px" icon="mdi-facebook" />
-                </q-btn>
-                <q-btn round flat dense class="sc-button  q-mx-xs"
-                  href="https://www.linkedin.com/in/john-paul-perez-74a0391b3/" target="_blank">
-                  <q-avatar class="sc-icon" id="li" size="md" font-size="19px" icon="mdi-linkedin" />
-                </q-btn>
-                <q-btn round flat dense class="sc-button  q-mx-xs" href="https://www.instagram.com/kimoy_17/"
-                  target="_blank">
-                  <q-avatar class="sc-icon" id="ig" size="md" font-size="19px" icon="mdi-instagram" />
-                </q-btn>
-                <q-btn round flat dense class="sc-button  q-mx-xs" href="https://github.com/jopenski99" target="_blank">
-                  <q-avatar class="sc-icon" id="gh" size="md" font-size="19px" icon="mdi-github" />
-                </q-btn>
-                <q-btn round flat dense class="sc-button  q-mx-xs"
-                  href="https://open.spotify.com/user/22r4lyy76vu47konrfirev35y" target="_blank">
-                  <q-avatar class="sc-icon" id="sp" size="md" font-size="19px" icon="mdi-spotify" />
-                </q-btn>
-                <q-btn round flat dense class="sc-button  q-mx-xs" href="https://discordapp.com/users/jopenski99"
-                  target="_blank">
-                  <q-avatar class="sc-icon" id="di" round size="md" font-size="20px" icon="mdi-discord" />
-                </q-btn>
+                <div class="row-inline q-gutter-x-md">
+                  <div class="col-8">
+                    <q-btn round flat dense class="q-pa-md q-mx-xs sc-button" href="https://facebook.com/kim.jopen"
+                      target="_blank">
+                      <q-avatar class="sc-icon" id="fb" size="md" font-size="19px" icon="mdi-facebook" />
+                    </q-btn>
+                    <q-btn round flat dense class="sc-button  q-mx-xs"
+                      href="https://www.linkedin.com/in/john-paul-perez-74a0391b3/" target="_blank">
+                      <q-avatar class="sc-icon" id="li" size="md" font-size="19px" icon="mdi-linkedin" />
+                    </q-btn>
+                    <q-btn round flat dense class="sc-button  q-mx-xs" href="https://www.instagram.com/kimoy_17/"
+                      target="_blank">
+                      <q-avatar class="sc-icon" id="ig" size="md" font-size="19px" icon="mdi-instagram" />
+                    </q-btn>
+                    <q-btn round flat dense class="sc-button  q-mx-xs" href="https://github.com/jopenski99"
+                      target="_blank">
+                      <q-avatar class="sc-icon" id="gh" size="md" font-size="19px" icon="mdi-github" />
+                    </q-btn>
+                    <q-btn round flat dense class="sc-button  q-mx-xs"
+                      href="https://open.spotify.com/user/22r4lyy76vu47konrfirev35y" target="_blank">
+                      <q-avatar class="sc-icon" id="sp" size="md" font-size="19px" icon="mdi-spotify" />
+                    </q-btn>
+                    <q-btn round flat dense class="sc-button  q-mx-xs" href="https://discordapp.com/users/jopenski99"
+                      target="_blank">
+                      <q-avatar class="sc-icon" id="di" round size="md" font-size="20px" icon="mdi-discord" />
+                    </q-btn>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </q-card>
+          <q-card class="q-mt-md q-mb-md q-pa-xs q-pl-md full-width row items-center justify-between"
+            style="border-radius: 15px">
+            <div class="row full-width q-gutter-x-md q-ma-xs">
+              <div class="col-12" style="margin:0px;"><span style="font-size: 1rem; font-weight: 500; ">Contact</span>
+              </div>
+              <div class="col-12 full-width q-gutter-x-md" style="margin:0px;">
+                <div class="row  q-pa-sm full-width">
+                  <div v-for="contact in contacts" :key="contact.value"
+                    class="col-12 col-sm-6 col-md-4   items-center q-pa-xs ">
+                    <a class="contact-button" :href="'mailto:' + contact.value" v-if="contact.type == 'email'">
+                      <div class="row q-pa-sm" style="border-radius: 15px; background-color:rgb(51, 51, 51);">
+                        <div class="col-5" style="width:40%">Icon</div>
+                        <div class="col-7 justify-center text-center" style="width:55%">{{ contact.name }}</div>
+                      </div>
+                    </a>
+                    <a class="contact-button" :href="'tel:' + contact.value" v-if="contact.type == 'sms'">
+                      <div class="row q-pa-sm" style="border-radius: 15px; background-color:rgb(51, 51, 51);">
+                        <div class="col-5" style="width:40%">Icon</div>
+                        <div class="col-7 justify-center text-center" style="width:55%">{{ contact.name }}</div>
+                      </div>
+                    </a>
+                    <a class="contact-button" :href="'mailto:' + contact.value" v-if="contact.type == 'tel'">
+                      <div class="row q-pa-sm" style="border-radius: 15px; background-color:rgb(51, 51, 51);">
+                        <div class="col-5" style="width:40%">Icon</div>
+                        <div class="col-7 justify-center text-center" style="width:55%">{{ contact.name }}</div>
+                      </div>
+                    </a>
+                    <a class="contact-button" :href="'mailto:' + contact.value" v-if="contact.type == 'app'">
+                      <div class="row q-pa-sm" style="border-radius: 15px; background-color:rgb(51, 51, 51);">
+                        <div class="col-5" style="width:40%">Icon</div>
+                        <div class="col-7 justify-center text-center" style="width:55%">{{ contact.name }}</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
 
             </div>
           </q-card>
         </div>
-        <div class="col-12 col-sm-6 col-md-8 q-px-md">
-          <q-card class="q-pa-xs q-pl-md full-width row items-center" style="border-radius: 15px">
-            <ProjectsCard />
-          </q-card>
-          <q-card class="q-pa-md full-width q-mt-md" style="border-radius: 15px">
-            <q-timeline color="primary" style=" height:75vh; overflow-y: scroll; " class="q-pa-md">
-              <q-timeline-entry title="Development Consultant (JAAIMS) March 2023 - Dec 2024" icon="laptop" side="left">
-                <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
-                  label="Key roles: Dev Management, Frontend, Backend (Part time)" header-class="bg-primary text-white"
-                  expand-icon-class="text-white">
-                  <div class="q-pa-md">
-                    <div>
-                      As a Development Consultant, I manage a team of developers to design and implement upcoming
-                      features,
-                      ensuring that the system is scalable for future updates. I also provide technical guidance to help
-                      clients make informed decisions regarding the technology stack and architecture of the application.
-                    </div>
-                    <div class="q-mt-md">
-                      Tools used in this role:
-                      <div class="row">
-                        <div class="col-6">
-                          <ul>
-                            <li>AWS Lambda</li>
-                            <li>DynamoDb</li>
-                            <li>API Gateway</li>
-                            <li>Amplify</li>
-                            <li>Cognito</li>
-                          </ul>
-                        </div>
-                        <div class="col-6">
-                          <ul>
-                            <li>Pipeline</li>
-                            <li>Codecommit</li>
-                            <li>Vue js</li>
-                            <li>PWA</li>
-                            <li>Quasar</li>
-                          </ul>
+        <div class="col-12 col-sm-6 col-md-8 ">
+          <div class="full-width ">
+            <q-card class="q-pa-xs q-pl-md full-width row items-center" style="border-radius: 15px">
+              <ProjectsCard />
+            </q-card>
+            <q-card class="q-pa-md full-width q-mt-md" style="border-radius: 15px">
+              <q-timeline color="primary" style=" height:75vh; overflow-y: scroll; " class="q-pa-md">
+                <q-timeline-entry title="Development Consultant (JAAIMS) March 2023 - Dec 2024" icon="laptop"
+                  side="left">
+                  <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
+                    label="Key roles: Dev Management, Frontend, Backend (Part time)"
+                    header-class="bg-primary text-white" expand-icon-class="text-white">
+                    <div class="q-pa-md">
+                      <div>
+                        As a Development Consultant, I manage a team of developers to design and implement upcoming
+                        features,
+                        ensuring that the system is scalable for future updates. I also provide technical guidance to
+                        help
+                        clients make informed decisions regarding the technology stack and architecture of the
+                        application.
+                      </div>
+                      <div class="q-mt-md">
+                        Tools used in this role:
+                        <div class="row">
+                          <div class="col-6">
+                            <ul>
+                              <li>AWS Lambda</li>
+                              <li>DynamoDb</li>
+                              <li>API Gateway</li>
+                              <li>Amplify</li>
+                              <li>Cognito</li>
+                            </ul>
+                          </div>
+                          <div class="col-6">
+                            <ul>
+                              <li>Pipeline</li>
+                              <li>Codecommit</li>
+                              <li>Vue js</li>
+                              <li>PWA</li>
+                              <li>Quasar</li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </q-expansion-item>
-              </q-timeline-entry>
-              <q-timeline-entry title="Fullstack Developer (Altitude Games) Aug 2023 - Oct 2024" icon="laptop"
-                side="left">
-                <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
-                  label="Key roles: Dev Management, Frontend, Backend (Full time)" header-class="bg-primary text-white"
-                  expand-icon-class="text-white">
-                  <div class="q-pa-md"><!--  -->
-                    <div>
-                      As a Fullstack Developer, I developed a web portal for games made by the company. The web portal
-                      allows users to view and interact with the games, as well as manage their accounts and access other
-                      features. I was responsible for designing and implementing the frontend and backend of the web
-                      portal,
-                      ensuring that the system was scalable for future updates. I also worked closely with the game
-                      developers
-                      to ensure that the web portal integrated seamlessly with the games.
-                    </div>
-                    <div class="q-mt-md">
-                      Tools used in this role:
-                      <div class="row">
-                        <div class="col-6">
-                          <ul>
-                            <li>AWS Amplify</li>
-                            <li>Laravel</li>
-                            <li>Playfab</li>
-                            <li>PWA</li>
-                            <li>Vue2</li>
-                          </ul>
-                        </div>
-                        <div class="col-6">
-                          <ul>
-                            <li>Quasar</li>
-                          </ul>
-                        </div>
+                  </q-expansion-item>
+                </q-timeline-entry>
+                <q-timeline-entry title="Fullstack Developer (Altitude Games) Aug 2023 - Oct 2024" icon="laptop"
+                  side="left">
+                  <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
+                    label="Key roles: Dev Management, Frontend, Backend (Full time)"
+                    header-class="bg-primary text-white" expand-icon-class="text-white">
+                    <div class="q-pa-md"><!--  -->
+                      <div>
+                        As a Fullstack Developer, I developed a web portal for games made by the company. The web portal
+                        allows users to view and interact with the games, as well as manage their accounts and access
+                        other
+                        features. I was responsible for designing and implementing the frontend and backend of the web
+                        portal,
+                        ensuring that the system was scalable for future updates. I also worked closely with the game
+                        developers
+                        to ensure that the web portal integrated seamlessly with the games.
                       </div>
-  
-                    </div>
-                  </div>
-                </q-expansion-item>
-              </q-timeline-entry>
-              <q-timeline-entry title="Head of Development (JAAIMS) March 2023 - Dec 2024" icon="laptop" side="left">
-                <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
-                  label="Key roles: Dev Management, Frontend, Backend (Full time)" header-class="bg-primary text-white"
-                  expand-icon-class="text-white">
-                  <div class="q-pa-md">
-                    <div>
-                      As the Lead Developer, I managed a team of developers to design and implement two applications, the
-                      Main
-                      App and the Admin Portal. The Main App is a web application that allows users to view and interact
-                      with
-                      their data, while the Admin Portal is a web application that allows administrators to manage the
-                      data
-                      and configure the system. My team and I were responsible for ensuring that the system was scalable
-                      for
-                      future updates and that the technology stack and architecture of the application were appropriate
-                      for
-                      the needs of the business. We worked closely with the stakeholders to ensure that the applications
-                      met
-                      their needs and were delivered on time and within budget. My responsibilities included:
-                      - Managing the development team to ensure that the project was completed on time and to a high
-                      standard
-                      - Providing technical guidance to the team to ensure that the application was scalable and
-                      maintainable
-                      - Ensuring that the technology stack and architecture of the application were appropriate for the
-                      needs
-                      of the business
-                      - Working closely with the stakeholders to ensure that the application met their needs and was
-                      delivered
-                      on time and within budget
-                      - Ensuring that the application was tested thoroughly to ensure that it was of high quality and met
-                      the
-                      needs of the business
-                      - Providing support and maintenance to the application after it was deployed to ensure that it
-                      continued
-                      to meet the needs of the business
-                    </div>
-                    <div class="q-mt-md">
-                      Tools used in this role:
-                      <div class="row">
-                        <div class="col-6">
-                          <ul>
-                            <li>AWS Lambda</li>
-                            <li>DynamoDb</li>
-                            <li>API Gateway</li>
-                            <li>Amplify</li>
-                            <li>Cognito</li>
-                          </ul>
+                      <div class="q-mt-md">
+                        Tools used in this role:
+                        <div class="row">
+                          <div class="col-6">
+                            <ul>
+                              <li>AWS Amplify</li>
+                              <li>Laravel</li>
+                              <li>Playfab</li>
+                              <li>PWA</li>
+                              <li>Vue2</li>
+                            </ul>
+                          </div>
+                          <div class="col-6">
+                            <ul>
+                              <li>Quasar</li>
+                            </ul>
+                          </div>
                         </div>
-                        <div class="col-6">
-                          <ul>
-                            <li>Pipeline</li>
-                            <li>Codecommit</li>
-                            <li>Vue js</li>
-                            <li>PWA</li>
-                            <li>Quasar</li>
-                          </ul>
-                        </div>
-                      </div>
-  
-                    </div>
-                  </div>
-                </q-expansion-item>
-              </q-timeline-entry>
-              <q-timeline-entry title="Lead Developer (CoDev) Jan 2022 - Feb 2023" icon="laptop" side="left">
-                <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
-                  label="Key roles: Dev Management, Frontend, Backend (Full time)" header-class="bg-primary text-white"
-                  expand-icon-class="text-white">
-                  <div class="q-pa-md">
-                    <div>
-                      As the Lead Developer, I was responsible for working on 1 out of 22 microservices as a monolithic
-                      frontend using Vue JS and Laravel as our backend. The service I worked on was responsible for
-                      catering
-                      incoming client's inquiry on a specific apartment in the community, storing it as a lead, and
-                      eventually
-                      making an accurate calculation to recommend available apartments or rooms for clients. My team and I
-                      were responsible for ensuring that the system was scalable for future updates and that the
-                      technology
-                      stack and architecture of the application were appropriate for the needs of the business. We worked
-                      closely with the stakeholders to ensure that the application met their needs and was delivered on
-                      time
-                      and within budget. My responsibilities included:
-  
-                    </div>
-                    <div class="q-mt-md">
-                      Tools used in this role:
-                      <div class="row">
-                        <div class="col-6">
-                          <ul>
-                            <li>AWS Jenkins</li>
-                            <li>Argo CD</li>
-                            <li>Vue JS</li>
-                            <li>Laravel</li>
-                            <li>Cognito</li>
-                          </ul>
-                        </div>
+
                       </div>
                     </div>
-                  </div>
-                </q-expansion-item>
-              </q-timeline-entry>
-              <q-timeline-entry title="Full Stack Developer (Eversun Software Philippines Corp) March 2020 - Jan 2022"
-                icon="laptop" side="left">
-                <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
-                  label="Key roles: Dev Management, Frontend, Backend (Full time)" header-class="bg-primary text-white"
-                  expand-icon-class="text-white">
-                  <div class="q-pa-md">
-                    <div>
-                      As a Full Stack Developer, I was responsible for working on 2 projects: an E-learning application
-                      that
-                      caters educational resources for students, and a Manpower Loaning and Renting Application for both
-                      users
-                      and administrators. The E-learning application was built using Vue JS and Laravel as our backend,
-                      and
-                      was responsible for storing and retrieving educational resources, as well as providing a
-                      user-friendly
-                      interface for users to access the resources. The Manpower Loaning and Renting Application was built
-                      using Vue JS and Laravel as our backend, and was responsible for allowing users to apply for loans
-                      and
-                      rentals, and for administrators to manage the applications and provide approvals. My team and I were
-                      responsible for ensuring that the system was scalable for future updates and that the technology
-                      stack
-                      and architecture of the applications were appropriate for the needs of the business. We worked
-                      closely
-                      with the stakeholders to ensure that the applications met their needs and were delivered on time and
-                      within budget. My responsibilities included:
+                  </q-expansion-item>
+                </q-timeline-entry>
+                <q-timeline-entry title="Head of Development (JAAIMS) March 2023 - Dec 2024" icon="laptop" side="left">
+                  <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
+                    label="Key roles: Dev Management, Frontend, Backend (Full time)"
+                    header-class="bg-primary text-white" expand-icon-class="text-white">
+                    <div class="q-pa-md">
+                      <div>
+                        As the Lead Developer, I managed a team of developers to design and implement two applications,
+                        the
+                        Main
+                        App and the Admin Portal. The Main App is a web application that allows users to view and
+                        interact
+                        with
+                        their data, while the Admin Portal is a web application that allows administrators to manage the
+                        data
+                        and configure the system. My team and I were responsible for ensuring that the system was
+                        scalable
+                        for
+                        future updates and that the technology stack and architecture of the application were
+                        appropriate
+                        for
+                        the needs of the business. We worked closely with the stakeholders to ensure that the
+                        applications
+                        met
+                        their needs and were delivered on time and within budget. My responsibilities included:
+                        - Managing the development team to ensure that the project was completed on time and to a high
+                        standard
+                        - Providing technical guidance to the team to ensure that the application was scalable and
+                        maintainable
+                        - Ensuring that the technology stack and architecture of the application were appropriate for
+                        the
+                        needs
+                        of the business
+                        - Working closely with the stakeholders to ensure that the application met their needs and was
+                        delivered
+                        on time and within budget
+                        - Ensuring that the application was tested thoroughly to ensure that it was of high quality and
+                        met
+                        the
+                        needs of the business
+                        - Providing support and maintenance to the application after it was deployed to ensure that it
+                        continued
+                        to meet the needs of the business
+                      </div>
+                      <div class="q-mt-md">
+                        Tools used in this role:
+                        <div class="row">
+                          <div class="col-6">
+                            <ul>
+                              <li>AWS Lambda</li>
+                              <li>DynamoDb</li>
+                              <li>API Gateway</li>
+                              <li>Amplify</li>
+                              <li>Cognito</li>
+                            </ul>
+                          </div>
+                          <div class="col-6">
+                            <ul>
+                              <li>Pipeline</li>
+                              <li>Codecommit</li>
+                              <li>Vue js</li>
+                              <li>PWA</li>
+                              <li>Quasar</li>
+                            </ul>
+                          </div>
+                        </div>
+
+                      </div>
                     </div>
-                    <div class="q-mt-md">
-                      Tools used in this role:
-                      <div class="row">
-                        <div class="col-6">
-                          <ul>
-                            <li>Google Cloud Computing</li>
-                            <li>Putty</li>
-                            <li>Nuxt Vue JS</li>
-                            <li>Laravel</li>
-                            <li>PWA</li>
-                          </ul>
+                  </q-expansion-item>
+                </q-timeline-entry>
+                <q-timeline-entry title="Lead Developer (CoDev) Jan 2022 - Feb 2023" icon="laptop" side="left">
+                  <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
+                    label="Key roles: Dev Management, Frontend, Backend (Full time)"
+                    header-class="bg-primary text-white" expand-icon-class="text-white">
+                    <div class="q-pa-md">
+                      <div>
+                        As the Lead Developer, I was responsible for working on 1 out of 22 microservices as a
+                        monolithic
+                        frontend using Vue JS and Laravel as our backend. The service I worked on was responsible for
+                        catering
+                        incoming client's inquiry on a specific apartment in the community, storing it as a lead, and
+                        eventually
+                        making an accurate calculation to recommend available apartments or rooms for clients. My team
+                        and
+                        I
+                        were responsible for ensuring that the system was scalable for future updates and that the
+                        technology
+                        stack and architecture of the application were appropriate for the needs of the business. We
+                        worked
+                        closely with the stakeholders to ensure that the application met their needs and was delivered
+                        on
+                        time
+                        and within budget. My responsibilities included: Lead my team of developers and QA. Recreate
+                        entire microservice.
+                        Adding new feature, Debugging, Integrating with the other microservices.
+
+                      </div>
+                      <div class="q-mt-md">
+                        Tools used in this role:
+                        <div class="row">
+                          <div class="col-6">
+                            <ul>
+                              <li>AWS Jenkins</li>
+                              <li>Argo CD</li>
+                              <li>Vue JS</li>
+                              <li>Laravel</li>
+                              <li>Cognito</li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </q-expansion-item>
-              </q-timeline-entry>
-  
-              <q-timeline-entry title="Full Stack Developer (PosBang Corp) Oct 2019 - March 2020"
-                subtitle="Key roles: Dev Management, Frontend, Backend (Full time)" icon="laptop" side="left">
-                <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
-                  label="Key roles: Dev Management, Frontend, Backend (Full time)" header-class="bg-primary text-white"
-                  expand-icon-class="text-white">
-                  <div class="q-pa-md">
-                    <div>
-                      As a Full Stack Developer, I was responsible for working on 2 projects: an Landing site for our
-                      companies main product (POS), and Employee Management Application for both users and administrators.
-                      My
-                      responsibilities included:
-                    </div>
-                    <div class="q-mt-md">
-                      Tools used in this role:
-                      <div class="row">
-                        <div class="col-6">
-                          <ul>
-                            <li>Google Cloud Computing</li>
-                            <li>Putty</li>
-                            <li>Vuejs</li>
-                            <li>Php Yii2</li>
-                            <li>Wordpress</li>
-                          </ul>
+                  </q-expansion-item>
+                </q-timeline-entry>
+                <q-timeline-entry title="Full Stack Developer (Eversun Software Philippines Corp) March 2020 - Jan 2022"
+                  icon="laptop" side="left">
+                  <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
+                    label="Key roles: Dev Management, Frontend, Backend (Full time)"
+                    header-class="bg-primary text-white" expand-icon-class="text-white">
+                    <div class="q-pa-md">
+                      <div>
+                        As a Full Stack Developer, I was responsible for working on 2 projects: an E-learning
+                        application
+                        that
+                        caters educational resources for students, and a Manpower Loaning and Renting Application for
+                        both
+                        users
+                        and administrators. The E-learning application was built using Vue JS and Laravel as our
+                        backend,
+                        and
+                        was responsible for storing and retrieving educational resources, as well as providing a
+                        user-friendly
+                        interface for users to access the resources. The Manpower Loaning and Renting Application was
+                        built
+                        using Vue JS and Laravel as our backend, and was responsible for allowing users to apply for
+                        loans
+                        and
+                        rentals, and for administrators to manage the applications and provide approvals. My team and I
+                        were
+                        responsible for ensuring that the system was scalable for future updates and that the technology
+                        stack
+                        and architecture of the applications were appropriate for the needs of the business. We worked
+                        closely
+                        with the stakeholders to ensure that the applications met their needs and were delivered on time
+                        and
+                        within budget. My responsibilities included: Discussion with the clients in regards with the
+                        project's concern or progess.
+                        Adding new features, Create the database structure for the entire operation.
+                      </div>
+                      <div class="q-mt-md">
+                        Tools used in this role:
+                        <div class="row">
+                          <div class="col-6">
+                            <ul>
+                              <li>Google Cloud Computing</li>
+                              <li>Putty</li>
+                              <li>Nuxt Vue JS</li>
+                              <li>Laravel</li>
+                              <li>PWA</li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </q-expansion-item>
-              </q-timeline-entry>
-            </q-timeline>
-          </q-card>
+                  </q-expansion-item>
+                </q-timeline-entry>
+
+                <q-timeline-entry title="Full Stack Developer (PosBang Corp) Oct 2019 - March 2020"
+                  subtitle="Key roles: Dev Management, Frontend, Backend (Full time)" icon="laptop" side="left">
+                  <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
+                    label="Key roles: Dev Management, Frontend, Backend (Full time)"
+                    header-class="bg-primary text-white" expand-icon-class="text-white">
+                    <div class="q-pa-md">
+                      <div>
+                        As a Full Stack Developer, I was responsible for working on 2 projects: A Landing site for our
+                        company's main product (POS), and Employee Management Application for both users and
+                        administrators.
+                        My
+                        responsibilities included: Maintaining site, Adding new features, Decluttering codes and
+                        optimize
+                        UI/UX
+                      </div>
+                      <div class="q-mt-md">
+                        Tools used in this role:
+                        <div class="row">
+                          <div class="col-6">
+                            <ul>
+                              <li>Google Cloud Computing</li>
+                              <li>Putty</li>
+                              <li>Vuejs</li>
+                              <li>Php Yii2</li>
+                              <li>Wordpress</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </q-expansion-item>
+                </q-timeline-entry>
+              </q-timeline>
+            </q-card>
+          </div>
         </div>
       </div>
     </div>
@@ -409,7 +485,33 @@ export default {
   data() {
     return {
       currentTime: new Date().toLocaleTimeString(),
-      name: 'John Doe Perez',
+      name: 'John Paul Pulido Perez',
+      contacts: [
+        {
+          name: "Google",
+          value: "johnpaulperez.prof@gmail.com",
+          action: "emailto:johnpaulperez.prof@gmail.com",
+          type: 'email'
+        },
+        {
+          name: "Message",
+          value: "+639284593303",
+          action: "emailto:johnpaulperez.prof@gmail.com",
+          type: 'sms'
+        },
+        {
+          name: "Viber",
+          value: "+639284593303",
+          action: "emailto:johnpaulperez.prof@gmail.com",
+          type: 'tel'
+        },
+        {
+          name: "Messenger",
+          value: "+639284593303",
+          action: "emailto:johnpaulperez.prof@gmail.com",
+          type: 'app'
+        },
+      ],
       latestCommitUrl: '',
       latestCommitHash: '',
       latestCommitMessage: '',
@@ -636,5 +738,10 @@ export default {
   #di:hover {
     color: #7289da;
   }
+}
+
+.contact-button {
+  text-decoration: none;
+  color: #e2e8f0;
 }
 </style>

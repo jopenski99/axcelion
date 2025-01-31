@@ -2,9 +2,9 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/Blank.vue'),
     children: [
-      { path: '', component: () => import('pages/PWA.vue') }
+      { path: '', component: () => import('pages/PortfolioV2.vue') }
     ]
   },
   {

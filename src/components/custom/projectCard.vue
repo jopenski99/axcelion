@@ -9,12 +9,15 @@
         <div class="card-author">
             <a class="author-avatar" href="#">
                 <span>
+            
+                    <img :src="project.company.logo_url" width="40px" style="border-radius:50%; margin-top:5px;"/>
                 </span></a>
             <svg class="half-circle" viewBox="0 0 106 57">
                 <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
             </svg>
             <div class="author-name">
-                <div class="author-name-prefix">{{project.name}}</div> {{ project.location}}
+                <div class="author-name-prefix">{{project.name}}</div>
+                <div class="author-company">{{project.company.name}}</div> {{ project.location}}
             </div>
         </div>
         <div class="tags full-width flex justify-center">
@@ -50,6 +53,7 @@ export default {
 </script>
 
 <style scoped>
+
 .card {
     margin:5px;
 
@@ -69,6 +73,7 @@ export default {
 
 .card:hover {
     transform: translateY(-0.4rem);
+    border:#1976d2 solid 2px;
 }
 
 .card-author {
@@ -92,14 +97,17 @@ export default {
 
 .author-avatar span {
     display: block;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background: #f2f2f2;
-    margin: 16px 10px;
+    margin: 16px 7px;
   
 }
-
+.author-company{
+    font-size: 0.9rem;
+    font-weight: 600;
+}
 .half-circle {
     position: absolute;
     bottom: 0;
