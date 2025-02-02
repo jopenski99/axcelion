@@ -9,7 +9,9 @@
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev -m pwa",
     "build": "quasar build",
-    "deploy": "gh-pages -d dist/spa"
+    "deploy": "gh-pages -d dist/spa",
+    "build:production": "cross-env NODE_ENV=prod quasar build", 
+    "deploy:production": "npm run build:production && gh-pages -d dist/spa"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
@@ -27,6 +29,7 @@
     "@quasar/app-vite": "^1.3.0",
     "@vue/devtools": "^7.0.11",
     "autoprefixer": "^10.4.2",
+    "cross-env": "^7.0.3",
     "gh-pages": "^6.3.0",
     "postcss": "^8.4.14",
     "workbox-build": "^7.1.1",
