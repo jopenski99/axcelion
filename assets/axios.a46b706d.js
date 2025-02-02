@@ -1,1 +1,0 @@
-import{b as i}from"./index.dfd2cf24.js";import{a}from"./axios.05cf8750.js";const e=a.create({baseURL:"https://api.example.com"});var t=i(({app:o})=>{o.config.globalProperties.$axios=a,o.config.globalProperties.$api=e});export{e as api,t as default};
