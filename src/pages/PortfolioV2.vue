@@ -12,7 +12,7 @@
             </div>
             <div class="col-12 col-md-5 text-center justify-center">
               <div class="row full-width q-py-sm q-px-md">
-                <img src="/2.jpg" style="width: 100%; height: 90%; border-radius: 10%" />
+                <img src="./2.jpg" style="width: 100%; height: 90%; border-radius: 10%" />
               </div>
               <div class="row q-pt-md q-pl-md justify-start items-center">
                 <div class="pingdot "></div>
