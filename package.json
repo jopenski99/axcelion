@@ -9,7 +9,7 @@
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev -m pwa",
     "build": "quasar build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist/spa"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
