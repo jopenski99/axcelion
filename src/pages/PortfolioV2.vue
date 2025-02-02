@@ -12,7 +12,7 @@
             </div>
             <div class="col-12 col-md-5 text-center justify-center">
               <div class="row full-width q-py-sm q-px-md">
-                <q-img src="/2.jpg" style="width: 100%; height: 90%; border-radius: 10%" />
+                <img src="/2.jpg" style="width: 100%; height: 90%; border-radius: 10%" />
               </div>
               <div class="row q-pt-md q-pl-md justify-start items-center">
                 <div class="pingdot "></div>
@@ -144,41 +144,41 @@
           </q-card>
           <q-card class="q-mt-md q-mb-md q-pa-xs q-pl-md full-width row items-center justify-between"
             style="border-radius: 15px">
-            <div class="row full-width q-gutter-x-md q-ma-xs">
-              <div class="col-12" style="margin:0px;"><span style="font-size: 1rem; font-weight: 500; ">Contact</span>
+            <div class="row full-width q-gutter-x-md q-ma-xs text-center justify-center">
+              <!-- <div class="col-12" style="margin:0px;"><span style="font-size: 1rem; font-weight: 500; ">Contact</span>
               </div>
               <div class="col-12 full-width q-gutter-x-md" style="margin:0px;">
-                <div class="row  q-pa-sm full-width">
+                 <div class="row  q-pa-sm full-width">
                   <div v-for="contact in contacts" :key="contact.value"
                     class="col-12 col-sm-6 col-md-4   items-center q-pa-xs ">
                     <a class="contact-button" :href="'mailto:' + contact.value" v-if="contact.type == 'email'">
-                      <div class="row q-pa-sm" style="border-radius: 15px; background-color:rgb(51, 51, 51);">
+                      <div class="row q-pa-sm" :style="{'background-color': $q.dark.isActive ? 'rgb(51, 51, 51)' : 'rgb(188,188,188)', 'border-radius': '15px'}">
                         <div class="col-5" style="width:40%">Icon</div>
                         <div class="col-7 justify-center text-center" style="width:55%">{{ contact.name }}</div>
                       </div>
                     </a>
                     <a class="contact-button" :href="'tel:' + contact.value" v-if="contact.type == 'sms'">
-                      <div class="row q-pa-sm" style="border-radius: 15px; background-color:rgb(51, 51, 51);">
+                      <div class="row q-pa-sm" :style="{'background-color': $q.dark.isActive ? 'rgb(51, 51, 51)' : 'rgb(188,188,188)', 'border-radius': '15px'}">
                         <div class="col-5" style="width:40%">Icon</div>
                         <div class="col-7 justify-center text-center" style="width:55%">{{ contact.name }}</div>
                       </div>
                     </a>
                     <a class="contact-button" :href="'mailto:' + contact.value" v-if="contact.type == 'tel'">
-                      <div class="row q-pa-sm" style="border-radius: 15px; background-color:rgb(51, 51, 51);">
+                      <div class="row q-pa-sm" :style="{'background-color': $q.dark.isActive ? 'rgb(51, 51, 51)' : 'rgb(188,188,188)', 'border-radius': '15px'}">
                         <div class="col-5" style="width:40%">Icon</div>
                         <div class="col-7 justify-center text-center" style="width:55%">{{ contact.name }}</div>
                       </div>
                     </a>
                     <a class="contact-button" :href="'mailto:' + contact.value" v-if="contact.type == 'app'">
-                      <div class="row q-pa-sm" style="border-radius: 15px; background-color:rgb(51, 51, 51);">
+                      <div class="row q-pa-sm" :style="{'background-color': $q.dark.isActive ? 'rgb(51, 51, 51)' : 'rgb(188,188,188)', 'border-radius': '15px'}">
                         <div class="col-5" style="width:40%">Icon</div>
                         <div class="col-7 justify-center text-center" style="width:55%">{{ contact.name }}</div>
                       </div>
                     </a>
                   </div>
                 </div>
-              </div>
-
+              </div> -->
+              <ComingSoonLoader />
             </div>
           </q-card>
         </div>
@@ -478,10 +478,13 @@
 
 <script>
 import axios from 'axios'
+import img_url from '../mixins/img_url'
 import ProjectsCard from 'src/components/ProjectsCard.vue';
+import ComingSoonLoader from 'src/components/custom/loader-coming-soon.vue';
 export default {
   name: 'PortfolioV2',
-  components: { ProjectsCard },
+  components: { ProjectsCard,ComingSoonLoader },
+  mixins:[img_url],
   data() {
     return {
       currentTime: new Date().toLocaleTimeString(),
@@ -517,102 +520,101 @@ export default {
       latestCommitMessage: '',
       lastContributor: '',
       languages: [
-        //change the logo link of the array refer to the /public/scg folder except for vuejs, laravel, quasar mysql
         {
           id: 7,
           name: 'Vue.js',
-          logo: '/public/svg/vuejs.svg',
+          logo: this.generateImgUrl('svg/vuejs.svg'),
           color: '#FFFFFF',
           link: 'https://vuejs.org/'
         },
         {
           id: 8,
           name: 'Laravel',
-          logo: '/public/svg/laravel.svg',
+          logo: this.generateImgUrl('svg/laravel.svg'),
           color: '#FFFFFF',
           link: 'https://laravel.com/'
         },
         {
           id: 9,
           name: 'Node.js',
-          logo: '/public/svg/nodejs.svg',
+          logo: this.generateImgUrl('svg/nodejs.svg'),
           color: '#FFFFFF',
           link: 'https://nodejs.org/'
         },
         {
           id: 10,
           name: 'Quasar',
-          logo: '/public/svg/quasar-svgrepo-com.svg',
+          logo: this.generateImgUrl('svg/quasar-svgrepo-com.svg'),
           color: '#FFFFFF',
           link: 'https://quasar.dev/'
         },
         {
           id: 11,
           name: 'MySQL',
-          logo: '/public/svg/mysql-svgrepo-com.svg',
+          logo: this.generateImgUrl('svg/mysql-svgrepo-com.svg'),
           color: '#FFFFFF',
           link: 'https://www.mysql.com/'
         },
         {
           id: 12,
           name: 'PostgreSQL',
-          logo: '/public/svg/postgresql-svgrepo-com.svg',
+          logo: this.generateImgUrl('svg/postgresql-svgrepo-com.svg'),
           color: '#FFFFFF',
           link: 'https://www.postgresql.org/'
         },
         {
           id: 13,
           name: 'PWA',
-          logo: '/public/svg/pwa.svg',
+          logo: this.generateImgUrl('svg/pwa.svg'),
           color: '#FFFFFF',
           link: 'https://developers.google.com/web/progressive-web-apps'
         },
         {
           id: 14,
           name: 'AWS Amplify',
-          logo: '/public/svg/aws_amplify.svg',
+          logo: this.generateImgUrl('svg/aws_amplify.svg'),
           color: '#FFFFFF',
           link: 'https://aws.amazon.com/amplify/'
         },
         {
           id: 15,
           name: 'AWS Lambda',
-          logo: '/public/svg/aws_lambda.svg',
+          logo: this.generateImgUrl('svg/aws_lambda.svg'),
           color: '#FFFFFF',
           link: 'https://aws.amazon.com/lambda/'
         },
         {
           id: 16,
           name: 'AWS API Gateway',
-          logo: '/public/svg/aws_api_gateway.svg',
+          logo: this.generateImgUrl('svg/aws_api_gateway.svg'),
           color: '#FFFFFF',
           link: 'https://aws.amazon.com/api-gateway/'
         },
         {
           id: 17,
           name: 'AWS IAM',
-          logo: '/public/svg/aws_iam.svg',
+          logo: this.generateImgUrl('svg/aws_iam.svg'),
           color: '#FFFFFF',
           link: 'https://aws.amazon.com/iam/'
         },
         {
           id: 18,
           name: 'AWS Cognito',
-          logo: '/public/svg/aws_cognito.svg',
+          logo: this.generateImgUrl('svg/aws_cognito.svg'),
           color: '#FFFFFF',
           link: 'https://aws.amazon.com/cognito/'
         },
         {
           id: 19,
           name: 'AWS CodePipeline',
-          logo: '/public/svg/aws_codepipeline.svg',
+          logo: this.generateImgUrl('svg/aws_codepipeline.svg'),
           color: '#FFFFFF',
           link: 'https://aws.amazon.com/codepipeline/'
         },
         {
           id: 20,
           name: 'AWS CodeCommit',
-          logo: '/public/svg/aws_codecommit.svg',
+          logo: this.generateImgUrl('svg/aws_codecommit.svg'),
           color: '#FFFFFF',
           link: 'https://aws.amazon.com/codecommit/'
         },

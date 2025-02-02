@@ -1,5 +1,8 @@
 <template>
-    <div class="card full-width q-pa-md" @click="project.url ? openURL(project.url) : null" :title="project.url ? null : 'Sadly this site has not been maintained and can\'t be found anymore'">
+    <div class="card full-width q-pa-md"
+         @click="project.url ? openURL(project.url) : null" 
+         :title="project.url ? null : 'Sadly this site has not been maintained and can\'t be found anymore'"
+         :style="{'background-color': $q.dark.isActive ? 'rgb(51, 51, 51)' : 'rgb(222,222,222)'}">
         <header class="card-header item-center"  :style="{'background-color': project.backgound_color, borderRadius:'15px'}" >
             <!--  <p>May 3rd 2023</p> -->
             <span class="title">
@@ -21,7 +24,10 @@
             </div>
         </div>
         <div class="tags full-width flex justify-center">
-           <span v-for="tag in project.techs" :key="tag" class="tag" >
+           <span v-for="tag in project.techs" :key="tag" class="tag" 
+           :style="{
+            'background-color': $q.dark.isActive ? 'rgb(51, 51, 51)' : '#1976D2',
+            border: $q.dark.isActive ? '3px solid #28242f' : '3px solid #1976D2', color:'#fff'}">
             {{tag}}
            </span>
         </div>
@@ -86,7 +92,7 @@ export default {
 
 .author-name {
     color: #7a7a8c;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
 }
 
 .author-name-prefix {

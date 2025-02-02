@@ -4,7 +4,7 @@
         <div class="text-center q-mt-md q-mb-md" 
         :class="{'text-left' : collapsed}" 
         style="font-size:1.3rem; font-weight:500"> Projects 
-            <span style="background:#1976d2; border-radius:50% ; padding:3px 9px; font-size:0.8rem; margin-top:-10px; position:absolute;">{{projects.length}}</span>
+            <span :style="{ 'background-color':'#1976d2', color:'#fff', 'border-radius': '50%', padding: '3px 9px', 'font-size': '0.8rem', 'margin-top': '-10px', position: 'absolute' }">{{projects.length}}</span>
         </div>
         <div class="hide-button text-right absolute " @click="collapsed=!collapsed" style="">{{collapsed? 'Show': 'Hide'}}</div>
         <q-card-section class="full-width" v-if="!collapsed">
@@ -25,10 +25,12 @@
     </q-card>
 </template>
 <script>
+import img_url from '../mixins/img_url'
 import projectCard from './custom/projectCard.vue';
 export default {
     name: "ProjectsCard",
     components: { projectCard },
+    mixins: [img_url],
     data() {
         return {
             slide: 0,
@@ -44,7 +46,7 @@ export default {
                         logo_url: null,
                     },
                     backgound_color: '#fff',
-                    logo: '/public/surefast.png',
+                    logo: this.generateImgUrl('surefast.png'),
                     url: null,
                     techs: [
                         'Vue.js', 'Quasar', 'Laravel', 'PWA'
@@ -55,11 +57,11 @@ export default {
                     name: 'Jaaims',
                     company: {
                         name: "Launcher PTY LTD",
-                        logo_url: '/public/jaaims.png',
+                        logo_url: this.generateImgUrl('jaaims.png'),
                     },
                     location: 'Sydney, Australia',
                     backgound_color: '#fff',
-                    logo: '/public/jaaims.png',
+                    logo: this.generateImgUrl('jaaims.png'),
                     url: 'https://www.jaaimsapp.com/',
                     techs: [
                         'Vue.js',  'AWS', 'PWA','Bootstrap'
@@ -70,11 +72,11 @@ export default {
                     name: 'Quext',
                     company: {
                         name: "Codev",
-                        logo_url: '/public/codev.png',
+                        logo_url: this.generateImgUrl('codev.png'),
                     },
                     location: 'Virginia, USA',
                     backgound_color: '#333',
-                    logo: '/public/quext.png',
+                    logo: this.generateImgUrl('quext.png'),
                     url: 'https://onequext.com/',
                     techs: [
                         'Vue.js', 'AWS', 'Laravel', 'PWA'
@@ -85,11 +87,11 @@ export default {
                     name: 'ConX',
                     company: {
                         name: "Eversun",
-                        logo_url: '/public/eversun.png',
+                        logo_url: this.generateImgUrl('eversun.png'),
                     },
                     location: 'Texas, USA',
                     backgound_color: '#fff',
-                    logo: '/public/conx.png',
+                    logo: this.generateImgUrl('conx.png'),
                     url: 'https://conx-usa.com/',
                     techs: [
                         'Vue.js', 'Nuxt', 'Laravel', 'PWA'
@@ -104,7 +106,7 @@ export default {
                     },
                     location: 'local',
                     backgound_color: '#fff',
-                    logo: '/public/stl.png',
+                    logo: this.generateImgUrl('stl.png'),
                     url: null,
                     techs: [
                         'Vue.js', 'Quasar', 'Laravel', 'PWA'
@@ -116,10 +118,10 @@ export default {
                     location: 'South Korea',
                     company: {
                         name: "Posbang Corp",
-                        logo_url: '/public/posbang.png',
+                        logo_url: this.generateImgUrl('posbang.png'),
                     },
                     backgound_color: '#fff',
-                    logo: '/public/witty.png',
+                    logo: this.generateImgUrl('witty.png'),
                     url: 'https://www.witty.team/',
                     techs: [
                         'Vue.js', 'PHP Yii2', 
@@ -131,10 +133,10 @@ export default {
                     location: 'local',
                     company: {
                         name: "Posbang Corp",
-                        logo_url: '/public/posbang.png',
+                        logo_url: this.generateImgUrl('posbang.png'),
                     },
                     backgound_color: '#fff',
-                    logo: '/public/posbang.png',
+                    logo: this.generateImgUrl('posbang.png'),
                     url: null,
                     techs: [
                         'Wordpress'
@@ -145,11 +147,11 @@ export default {
                     name: 'Jaacs',
                     company: {
                         name: "Launcher PTY LTD",
-                        logo_url: '/public/jaaims.png',
+                        logo_url: this.generateImgUrl('jaaims.png'),
                     },
                     location: 'Sydney, Australia',
                     backgound_color: '#fff',
-                    logo: '/public/jaacs.png',
+                    logo: this.generateImgUrl('jaacs.png'),
                     url: 'https://picsum.photos/500/300?t=' + Math.random(),
                     techs: [
                         'Vue.js','AWS','Quasar'
@@ -164,7 +166,7 @@ export default {
                     },
                     location: 'USA & Australia',
                     backgound_color: '#333',
-                    logo: '/public/sweepz.png',
+                    logo: this.generateImgUrl('sweepz.png'),
                     url: 'https://www.sweepz.com/',
                     techs: [
                         'Vue.js','AWS','Quasar','Laravel'
@@ -175,7 +177,7 @@ export default {
     },
     computed: {
         chunkedProjects() {
-            const chunkSize = 4;
+            const chunkSize = this.$q.screen.lt.md ? 1 : this.$q.screen.lt.sm ? 2 : 4;
             return this.projects.reduce((resultArray, item, index) => {
                 const chunkIndex = Math.floor(index / chunkSize);
                 if (!resultArray[chunkIndex]) {
