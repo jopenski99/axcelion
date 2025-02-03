@@ -142,9 +142,11 @@
               </div>
             </div>
           </q-card>
-          <q-card class="q-mt-md q-mb-md q-pa-xs q-pl-md full-width row items-center justify-between"
+          <q-card class="q-mt-md q-mb-md q-pa-xs q-px-sm full-width row items-center justify-between"
             style="border-radius: 15px">
             <div class="row full-width q-gutter-x-md q-ma-xs text-center justify-center">
+              <iframe src="https://www.chatbase.co/chatbot-iframe/E8pmShbCvb5lbViKYE39J" width="100%"
+                style="height: 100%; min-height: 700px; margin: 0px; border-radius:15px;" frameborder="0" ></iframe>
               <!-- <div class="col-12" style="margin:0px;"><span style="font-size: 1rem; font-weight: 500; ">Contact</span>
               </div>
               <div class="col-12 full-width q-gutter-x-md" style="margin:0px;">
@@ -178,7 +180,7 @@
                   </div>
                 </div>
               </div> -->
-              <ComingSoonLoader />
+              
             </div>
           </q-card>
         </div>
@@ -483,8 +485,8 @@ import ProjectsCard from 'src/components/ProjectsCard.vue';
 import ComingSoonLoader from 'src/components/custom/loader-coming-soon.vue';
 export default {
   name: 'PortfolioV2',
-  components: { ProjectsCard,ComingSoonLoader },
-  mixins:[img_url],
+  components: { ProjectsCard, ComingSoonLoader },
+  mixins: [img_url],
   data() {
     return {
       currentTime: new Date().toLocaleTimeString(),
