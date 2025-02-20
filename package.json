@@ -8,10 +8,10 @@
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev -m pwa",
-    "build": "quasar build",
-    "deploy": "gh-pages -d dist/spa",
-    "build:production": "cross-env NODE_ENV=prod quasar build",
-    "deploy:production": "npm run build:production && gh-pages -d dist/spa"
+    "build": "quasar build -m pwa",
+    "deploy": "gh-pages -d dist/pwa",
+    "build:production": "cross-env NODE_ENV=prod quasar build -m pwa", 
+    "deploy:production": "npm run build:production && gh-pages -d dist/pwa"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",

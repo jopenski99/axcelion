@@ -1,0 +1,26 @@
+{
+  "theme_color": "#787878",
+  "background_color": "#2EC6FE",
+  "icons": [
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "icon512_maskable.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "icon512_rounded.png",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "any",
+  "display": "standalone",
+  "dir": "auto",
+  "lang": "en-US",
+  "name": "Axcelion Persona",
+  "short_name": "Axcelion",
+  "start_url": "https://jopenski99.github.io/axcelion/",
+  "description": "This is my Professional Portfolio"
+}
