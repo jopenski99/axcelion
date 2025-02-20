@@ -12,10 +12,12 @@
             </div>
             <div class="col-12 col-md-5 text-center justify-center">
               <div class="row full-width q-py-sm q-px-md">
-                <img src="/2.jpg" style="width: 100%; height: 90%; border-radius: 10%" />
+                <img :src="'./2.jpg'" style="width: 100%; height: 90%; border-radius: 10%" />
               </div>
               <div class="row q-pt-md q-pl-md justify-start items-center">
-                <div class="pingdot "></div>
+                <div
+                  :class="{ 'pingdot-green': settings.is_seeking == true, 'pingdot-red': settings.is_seeking == false }">
+                </div>
                 <span class="q-ml-md" style="font-size: 0.9rem; font-family: 'OCR A';">Seeking opportunities</span>
               </div>
             </div>
@@ -478,13 +480,15 @@
 
 <script>
 import axios from 'axios'
+import auth from '../api/spine/auth'
 import img_url from '../mixins/img_url'
 import ProjectsCard from 'src/components/ProjectsCard.vue';
 import ComingSoonLoader from 'src/components/custom/loader-coming-soon.vue';
+import { useSettingStore } from '../stores/site-settings';
 export default {
   name: 'PortfolioV2',
-  components: { ProjectsCard,ComingSoonLoader },
-  mixins:[img_url],
+  components: { ProjectsCard, ComingSoonLoader },
+  mixins: [img_url],
   data() {
     return {
       currentTime: new Date().toLocaleTimeString(),
@@ -622,11 +626,15 @@ export default {
       languageContainerExpand: false,
     }
   },
-  mounted() {
+  async mounted() {
     setInterval(() => {
       this.currentTime = new Date().toLocaleTimeString();
     }, 1000);
     this.getLatestCommit();
+    await auth.login();
+    await this.getSettings();
+
+    this.setupPage()
   },
   computed: {
     languagesWithThemeColor() {
@@ -638,11 +646,34 @@ export default {
         }
       })
     },
+    settings() {
+      return useSettingStore().getSettingState
+    },
     scrollShadowControl() {
       return this.$q.dark.isActive ? '#1D1D1D' : '#FFF'
     }
   },
   methods: {
+    setupPage() {
+      this.$q.dark.set(!this.settings.id_theme_light);
+      const ws = new WebSocket('ws://localhost:8000/ws/rtu/');
+      ws.onmessage = (event) => {
+        console.log(`Received message: ${event.data}`);
+      };
+      ws.onopen = () => {
+        console.log('Connected to WebSocket server');
+      };
+      ws.onclose = () => {
+        console.log('Disconnected from WebSocket server');
+      };
+      ws.onerror = (error) => {
+        console.log(`Error occurred: ${error}`);
+      };
+    },
+    async getSettings() {
+      const settingStore = useSettingStore();
+      await settingStore.getSettings();
+    },
     getLatestCommit() {
       axios.get('https://api.github.com/repos/jopenski99/axcelion/commits')
         .then(response => {

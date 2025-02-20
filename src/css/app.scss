@@ -41,16 +41,15 @@
   }
 
 
-  .pingdot {
-
+.pingdot-green {
     height: 10px;
     width: 10px;
     border-radius: 50%;
     background-color: #69ffa8;
-    animation: 1.5s pulse infinite ease-in-out;
+    animation: 1.5s pulse-green infinite ease-in-out;
   }
   
-  @keyframes pulse {
+  @keyframes pulse-green {
     0% {
       box-shadow: 0 0 0 0 #69ffa8;
     }
@@ -58,4 +57,21 @@
     100% {
       box-shadow: 0 0 0 14px #69ffa800;
     }
-  }
+}
+.pingdot-red {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #fd3a3a;
+    animation: 1.5s pulse-red infinite ease-in-out;
+}
+  
+@keyframes pulse-red {
+    0% {
+      box-shadow: 0 0 0 0 #fd3a3a;
+    }
+  
+    100% {
+      box-shadow: 0 0 0 14px #69ffa800;
+    }
+}
