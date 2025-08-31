@@ -193,7 +193,7 @@
             </q-card>
             <q-card class="q-pa-md full-width q-mt-md" style="border-radius: 15px">
               <q-timeline color="primary" style=" height:75vh; overflow-y: scroll; " class="q-pa-md">
-                <q-timeline-entry title="Development Consultant (JAAIMS) March 2023 - Dec 2024" icon="laptop"
+                <q-timeline-entry title="Development Consultant (JAAIMS) March 2023 - Sept 2025" icon="laptop"
                   side="left">
                   <q-expansion-item class="shadow-1 overflow-hidden " style="border-radius: 30px" icon="explore"
                     label="Key roles: Dev Management, Frontend, Backend (Part time)"
