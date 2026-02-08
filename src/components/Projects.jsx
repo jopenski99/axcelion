@@ -1,6 +1,7 @@
 import { portfolioData } from '../data'
 
 export const Projects = () => {
+  const baseUrl = import.meta.env.BASE_URL
   return (
     <section className="py-32 px-6 lg:ml-20" id="work">
       <div className="max-w-6xl mx-auto">
@@ -29,7 +30,7 @@ export const Projects = () => {
                   <img
                     alt={project.title}
                     className="w-full aspect-video object-cover"
-                    src={project.image}
+                    src={`${baseUrl}${project.image.startsWith('/') ? project.image.slice(1) : project.image}`}
                   />
                 </div>
               </div>

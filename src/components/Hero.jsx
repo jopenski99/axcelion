@@ -2,6 +2,7 @@ import { portfolioData } from '../data'
 
 export const Hero = () => {
   const { name, description, role, experience, location, status } = portfolioData.profile
+  const baseUrl = import.meta.env.BASE_URL
 
   return (
     <section
@@ -11,7 +12,7 @@ export const Hero = () => {
       {/* Background Image */}
       <div className="absolute right-0 top-0 bottom-0 w-1/2 opacity-10 pointer-events-none">
         <img
-          src="/assets/jp.png"
+          src={`${baseUrl}assets/jp.png`}
           alt="Background"
           className="w-full h-full object-cover filter"
           style={{
