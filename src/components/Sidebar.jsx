@@ -1,3 +1,8 @@
+import gsap from 'gsap'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
+
+gsap.registerPlugin(ScrollToPlugin)
+
 export const Sidebar = () => {
   const links = [
     { icon: 'terminal', label: 'Home.exe', href: '#hero' },
@@ -5,6 +10,23 @@ export const Sidebar = () => {
     { icon: 'layers', label: 'Projects.md', href: '#work' },
     { icon: 'alternate_email', label: 'Contact.sh', href: '#contact' },
   ]
+
+  const handleNavClick = (e, href) => {
+    e.preventDefault()
+    const target = document.querySelector(href)
+    
+    if (target) {
+      gsap.to(window, {
+        duration: 1,
+        scrollTo: {
+          y: target,
+          autoKill: true,
+          offsetY: 0,
+        },
+        ease: 'power2.inOut',
+      })
+    }
+  }
 
   return (
     <nav className="fixed left-4 lg:left-8 top-1/2 -translate-y-1/2 z-50 hidden md:block">
@@ -14,6 +36,7 @@ export const Sidebar = () => {
           <a
             key={i}
             href={link.href}
+            onClick={(e) => handleNavClick(e, link.href)}
             className="group relative flex items-center justify-center size-10 rounded-full bg-background-dark border border-border-dark hover:border-primary transition-all"
           >
             <span className="material-symbols-outlined text-sm group-hover:text-primary transition-colors">

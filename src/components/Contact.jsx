@@ -7,6 +7,8 @@ export const Contact = () => {
     email: '',
     message: '',
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState(null) // 'success', 'error', or null
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -16,12 +18,33 @@ export const Contact = () => {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // TODO: Implement form submission
-    console.log('Form submitted:', formData)
-    // Reset form
-    setFormData({ name: '', email: '', message: '' })
+    setIsSubmitting(true)
+    setSubmitStatus(null)
+
+    try {
+      const response = await fetch('https://formspree.io/f/mdaloqoj', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', message: '' })
+        setTimeout(() => setSubmitStatus(null), 5000)
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -38,6 +61,17 @@ export const Contact = () => {
         </div>
 
         <div className="glass-morphism rounded-2xl p-8 lg:p-12">
+          {submitStatus === 'success' && (
+            <div className="mb-6 p-4 bg-green-500/20 border border-green-500 rounded text-green-400 font-mono text-sm">
+              ✓ Message sent successfully!
+            </div>
+          )}
+          {submitStatus === 'error' && (
+            <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded text-red-400 font-mono text-sm">
+              ✗ Error sending message. Please try again.
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-8 font-mono">
             <div className="space-y-2">
               <label className="text-[10px] uppercase text-slate-500 font-bold">
@@ -49,7 +83,9 @@ export const Contact = () => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="John Doe"
-                className="w-full bg-background-dark/50 border border-border-dark rounded p-4 text-white focus:outline-none focus:border-primary transition-colors text-sm"
+                required
+                disabled={isSubmitting}
+                className="w-full bg-background-dark/50 border border-border-dark rounded p-4 text-white focus:outline-none focus:border-primary transition-colors text-sm disabled:opacity-50"
               />
             </div>
 
@@ -63,7 +99,9 @@ export const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="john@example.com"
-                className="w-full bg-background-dark/50 border border-border-dark rounded p-4 text-white focus:outline-none focus:border-primary transition-colors text-sm"
+                required
+                disabled={isSubmitting}
+                className="w-full bg-background-dark/50 border border-border-dark rounded p-4 text-white focus:outline-none focus:border-primary transition-colors text-sm disabled:opacity-50"
               />
             </div>
 
@@ -77,17 +115,20 @@ export const Contact = () => {
                 onChange={handleChange}
                 placeholder="System payload description..."
                 rows="5"
-                className="w-full bg-background-dark/50 border border-border-dark rounded p-4 text-white focus:outline-none focus:border-primary transition-colors text-sm"
+                required
+                disabled={isSubmitting}
+                className="w-full bg-background-dark/50 border border-border-dark rounded p-4 text-white focus:outline-none focus:border-primary transition-colors text-sm disabled:opacity-50"
               ></textarea>
             </div>
 
             <div className="md:col-span-2">
               <button
                 type="submit"
-                className="w-full py-4 bg-primary text-background-dark font-black rounded hover:bg-white transition-all flex items-center justify-center gap-3"
+                disabled={isSubmitting}
+                className="w-full py-4 bg-primary text-background-dark font-black rounded hover:bg-white transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                EXECUTE_SEND
-                <span className="material-symbols-outlined">send</span>
+                {isSubmitting ? 'SENDING...' : 'EXECUTE_SEND'}
+                <span className="material-symbols-outlined">{isSubmitting ? 'hourglass_empty' : 'send'}</span>
               </button>
             </div>
           </form>

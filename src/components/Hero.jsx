@@ -1,8 +1,110 @@
+import { useEffect } from 'react'
+import gsap from 'gsap'
 import { portfolioData } from '../data'
 
 export const Hero = () => {
   const { name, description, role, experience, location, status } = portfolioData.profile
   const baseUrl = import.meta.env.BASE_URL
+
+  useEffect(() => {
+    // Delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      // Store original text in data attributes
+      document.querySelector('#hero-name')?.setAttribute('data-text', name)
+      document.querySelector('#hero-description')?.setAttribute('data-text', description)
+
+      // Animate terminal window - ease in from bottom
+      gsap.from('.terminal-window', {
+        duration: 0.8,
+        opacity: 0,
+        y: 60,
+        ease: 'power2.out',
+      })
+
+      // Create terminal typing animation timeline
+      const tl = gsap.timeline({ delay: 1.2 })
+
+      // Section 1: whoami command
+      tl.to('#whoami-line', { opacity: 1, duration: 0.1 }, 0)
+        .to('#whoami-cmd', { opacity: 1, duration: 0.6, delay: 0.1 }, 0.1)
+        // Show whoami output container
+        .to('#whoami-output', { opacity: 1, duration: 0.1, delay: 0.2 }, 0.3)
+        // Type the name
+        .to('#hero-name', {
+          duration: name.length * 0.025,
+          delay: 0.1,
+          onUpdate() {
+            const element = document.querySelector('#hero-name')
+            const fullText = element?.getAttribute('data-text') || ''
+            const progress = this.progress()
+            const charCount = Math.floor(progress * fullText.length)
+            if (element) element.textContent = fullText.substring(0, charCount)
+          },
+        }, 0.6)
+        // Type the description
+        .to('#hero-description', {
+          duration: description.length * 0.02,
+          delay: 0.1,
+          onUpdate() {
+            const element = document.querySelector('#hero-description')
+            const fullText = element?.getAttribute('data-text') || ''
+            const progress = this.progress()
+            const charCount = Math.floor(progress * fullText.length)
+            if (element) element.textContent = fullText.substring(0, charCount)
+          },
+        }, 0.9)
+        // Section 2: cat intro.ts command
+        .to('#intro-line', { opacity: 1, duration: 0.1, delay: 0.8 }, 3.8)
+        .to('#intro-cmd', { opacity: 1, duration: 0.6, delay: -0.1 }, 0)
+        // Show code output (character by character for each line)
+        .to('#profile-code', {
+          opacity: 1,
+          duration: 0.01,
+          delay: 0.3,
+        }, 3.9)
+        .to('#profile-code-text', {
+          duration: 1.5,
+          delay: -0.01,
+          onStart() {
+            const element = document.querySelector('#profile-code-text')
+            if (element) element.textContent = ''
+          },
+          onUpdate() {
+            const element = document.querySelector('#profile-code-text')
+            const codeLines = [
+              `const profile = {`,
+              `  role: '${role}',`,
+              `  experience: '${experience}',`,
+              `  location: '${location}',`,
+              `  status: '${status}'`,
+              `};`,
+            ]
+            const fullText = codeLines.join('\n')
+            const progress = this.progress()
+            const charCount = Math.floor(progress * fullText.length)
+            if (element) element.textContent = fullText.substring(0, charCount)
+          },
+        }, 4.7)
+        // Section 3: ls ./capabilities command
+        .to('#capabilities-line', { opacity: 1, duration: 0.1, delay: 1.2 }, 4.8)
+        .to('#capabilities-cmd', { opacity: 1, duration: 0.6, delay: -0.1 }, 4.85)
+
+      // Animate CTA buttons after typing completes
+      tl.from(
+        '#hero .flex.gap-4 a',
+        {
+          opacity: 0,
+          y: 30,
+          stagger: 0.15,
+          ease: 'power2.out',
+          duration: 0.6,
+        },
+        '-=0.2'
+      )
+    }, 100)
+
+    return () => clearTimeout(timer)
+  }, [name, description, role, experience, location, status])
 
   return (
     <section
@@ -38,52 +140,35 @@ export const Hero = () => {
 
           {/* Terminal Content */}
           <div className="p-6 lg:p-10 font-mono text-sm md:text-base leading-relaxed">
-            <div className="mb-4">
+            {/* whoami section */}
+            <div id="whoami-line" className="mb-4 opacity-0">
               <span className="text-primary">jp@portfolio</span>
               <span className="text-blue-400">:</span>
-              <span className="text-blue-400">~</span>$ <span className="text-white">whoami</span>
+              <span className="text-blue-400">~</span>$ <span id="whoami-cmd" className="text-white opacity-0">whoami</span>
             </div>
 
-            <div className="mb-6">
+            <div id="whoami-output" className="mb-6 opacity-0">
               <p className="text-slate-400 mb-2">// Developer, Lead, Planner.</p>
-              <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">{name}</h1>
-              <p className="text-slate-400 max-w-2xl">{description}</p>
+              <h1 id="hero-name" className="text-3xl md:text-5xl font-bold text-white mb-4"></h1>
+              <p id="hero-description" className="text-slate-400 max-w-2xl"></p>
             </div>
 
-            <div className="mb-4">
+            {/* cat intro.ts section */}
+            <div id="intro-line" className="mb-4 opacity-0">
               <span className="text-primary">jp@portfolio</span>
               <span className="text-blue-400">:</span>
-              <span className="text-blue-400">~</span>$ <span className="text-white">cat intro.ts</span>
+              <span className="text-blue-400">~</span>$ <span id="intro-cmd" className="text-white opacity-0">cat intro.ts</span>
             </div>
 
-            <div className="space-y-1">
-              <div>
-                <span className="code-purple">const</span>{' '}
-                <span className="code-blue">profile</span> = {'{'}
-              </div>
-              <div className="pl-6">
-                <span className="code-teal">role:</span> <span className="code-yellow">'{role}'</span>,
-              </div>
-              <div className="pl-6">
-                <span className="code-teal">experience:</span>{' '}
-                <span className="code-yellow">'{experience}'</span>,
-              </div>
-              <div className="pl-6">
-                <span className="code-teal">location:</span>{' '}
-                <span className="code-yellow">'{location}'</span>,
-              </div>
-              <div className="pl-6">
-                <span className="code-teal">status:</span>{' '}
-                <span className="code-yellow">'{status}'</span>
-              </div>
-              <div>{'}'};
-              </div>
+            <div id="profile-code" className="space-y-1 opacity-0">
+              <div id="profile-code-text" className="font-mono text-sm whitespace-pre"></div>
             </div>
 
-            <div className="mt-8">
+            {/* ls ./capabilities section */}
+            <div id="capabilities-line" className="mt-8 opacity-0">
               <span className="text-primary">jp@portfolio</span>
               <span className="text-blue-400">:</span>
-              <span className="text-blue-400">~</span>$ <span className="text-white">ls ./capabilities</span>
+              <span className="text-blue-400">~</span>$ <span id="capabilities-cmd" className="text-white opacity-0">ls ./capabilities</span>
               <span className="cursor-blink"></span>
             </div>
           </div>
