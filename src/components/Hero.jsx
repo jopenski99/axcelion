@@ -67,10 +67,12 @@ export const Hero = () => {
           delay: -0.01,
           onStart() {
             const element = document.querySelector('#profile-code-text')
-            if (element) element.textContent = ''
+            if (element) element.innerHTML = ''
           },
           onUpdate() {
             const element = document.querySelector('#profile-code-text')
+            if (!element) return
+            
             const codeLines = [
               `const profile = {`,
               `  role: '${role}',`,
@@ -82,7 +84,40 @@ export const Hero = () => {
             const fullText = codeLines.join('\n')
             const progress = this.progress()
             const charCount = Math.floor(progress * fullText.length)
-            if (element) element.textContent = fullText.substring(0, charCount)
+            const displayText = fullText.substring(0, charCount)
+            
+            // Build HTML with colors
+            let html = displayText
+              .replace(/const/g, '<span style="color:#ffe66b">const</span>')
+              .replace(/profile/g, '<span style="color:#2773c9">profile</span>')
+              .replace(/{/g, '<span style="color:#3993d3">{</span>')
+              .replace(/}/g, '<span style="color:#3993d3">}</span>')
+              
+              .replace(/\n/g, '<br />')
+            
+            element.innerHTML = html
+          },
+          onComplete() {
+            const element = document.querySelector('#profile-code-text')
+            if (!element) return
+            
+            const codeLines = [
+              `const profile = {`,
+              `  role: '${role}',`,
+              `  experience: '${experience}',`,
+              `  location: '${location}',`,
+              `  status: '${status}'`,
+              `};`,
+            ]
+            const fullText = codeLines.join('\n')
+            
+            // Build final HTML with colors
+            let html = fullText
+              .replace(/const/g, '<span style="color:#f1d02b">const</span>')
+              .replace(/profile/g, '<span style="color:#2773c9">profile</span>')
+              .replace(/\n/g, '<br />')
+            
+            element.innerHTML = html
           },
         }, 4.7)
         // Section 3: ls ./capabilities command
@@ -161,7 +196,8 @@ export const Hero = () => {
             </div>
 
             <div id="profile-code" className="space-y-1 opacity-0">
-              <div id="profile-code-text" className="font-mono text-sm whitespace-pre"></div>
+              <div id="profile-code-text" className="font-mono text-sm whitespace-pre">
+              </div>
             </div>
 
             {/* ls ./capabilities section */}
