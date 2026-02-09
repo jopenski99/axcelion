@@ -36,10 +36,10 @@ export const portfolioData = {
             description: "Cloud-native infra and CI/CD pipelines."
         },
         {
-            id: "tailwind",
-            name: "Tailwind CSS",
-            icon: "view_quilt",
-            description: "Rapid, utility-first UI orchestration."
+            id: "laravel",
+            name: "Laravel",
+            icon: "api",
+            description: "Robust PHP framework for scalable web applications."
         },
         {
             id: "vue",

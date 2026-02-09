@@ -1,10 +1,72 @@
-import { useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import gsap from 'gsap'
 import { portfolioData } from '../data'
+import { aiChat } from '../utils/aiChat'
 
 export const Hero = () => {
   const { name, description, role, experience, location, status } = portfolioData.profile
   const baseUrl = import.meta.env.BASE_URL
+  
+  // Chat state
+  const [chatMessages, setChatMessages] = useState([])
+  const [isAiLoading, setIsAiLoading] = useState(false)
+  const [showAskInput, setShowAskInput] = useState(false)
+  const askInputRef = useRef(null)
+  const chatOutputRef = useRef(null)
+
+  const handleAskCommand = () => {
+    setShowAskInput(true)
+    setTimeout(() => {
+      if (askInputRef.current) {
+        askInputRef.current.focus()
+      }
+    }, 0)
+  }
+
+  const handleAskSubmit = async (e) => {
+    if (e.key === 'Enter' && !isAiLoading) {
+      const question = askInputRef.current?.value.trim()
+      
+      if (!question) {
+        return
+      }
+
+      // Add user message to chat
+      setChatMessages((prev) => [...prev, { role: 'user', content: question }])
+      setIsAiLoading(true)
+
+      try {
+        const response = await aiChat.query(question, {
+          context: {
+            name,
+            role,
+            experience,
+            location,
+            status,
+          },
+        })
+
+        if (response) {
+          setChatMessages((prev) => [...prev, { role: 'assistant', content: response }])
+        }
+      } catch (error) {
+        console.error('AI Chat Error:', error)
+        setChatMessages((prev) => [
+          ...prev,
+          {
+            role: 'assistant',
+            content: `Error: ${error.message}. Make sure your backend is running at http://localhost:8000`,
+          },
+        ])
+      } finally {
+        setIsAiLoading(false)
+        if (askInputRef.current) {
+          askInputRef.current.value = ''
+        }
+      }
+    }
+  }
+
   const handleNavClick = (e, href) => {
     e.preventDefault()
     const target = document.querySelector(href)
@@ -21,6 +83,7 @@ export const Hero = () => {
       })
     }
   }
+
   useEffect(() => {
     // Delay to ensure DOM is ready
     const timer = setTimeout(() => {
@@ -192,7 +255,7 @@ export const Hero = () => {
               <div className="size-3 rounded-full bg-[#27C93F]"></div>
             </div>
             <div className="text-[10px] font-mono text-slate-500 tracking-widest">
-              bash — 120x40
+              bash user/jp/career — 120x40   
             </div>
             <div className="w-12"></div>
           </div>
@@ -231,6 +294,11 @@ export const Hero = () => {
               <span className="text-blue-400">~</span>$ <span id="capabilities-cmd" className="text-white opacity-0">ls ./capabilities</span>
               <span className="cursor-blink"></span>
             </div>
+
+            {/* AI Chat section */}
+         
+          
+          
           </div>
         </div>
 

@@ -46,10 +46,12 @@
 }
 
 @keyframes blink {
+
   from,
   to {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
@@ -57,13 +59,11 @@
 
 .sidebar-line {
   width: 1px;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    #2DD4BF 20%,
-    #2DD4BF 80%,
-    transparent
-  );
+  background: linear-gradient(to bottom,
+      transparent,
+      #2DD4BF 20%,
+      #2DD4BF 80%,
+      transparent);
   position: absolute;
   left: 50%;
   top: 0;
@@ -78,7 +78,10 @@
 }
 
 .browser-frame {
-  border-top: 32px solid #1E293B;
+  border-top: 32px solid #171f2d;
+  border-bottom: 1px solid #007d8d;
+  border-left: 1px solid #007d8d;
+  border-right: 1px solid #007d8d;
   position: relative;
 }
 
@@ -92,6 +95,7 @@
   border-radius: 50%;
   background: #FF5F56;
   box-shadow: 16px 0 0 #FFBD2E, 32px 0 0 #27C93F;
+
 }
 
 .glass-morphism {
