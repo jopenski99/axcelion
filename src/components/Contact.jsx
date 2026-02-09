@@ -57,7 +57,9 @@ export const Contact = () => {
           <h2 className="font-mono text-primary text-sm mb-2 tracking-[0.3em] uppercase">
             &lt;Connection /&gt;
           </h2>
-          <h3 className="text-4xl font-bold text-white">Start a new process.</h3>
+          <span className="text-[15px] text-slate-500 font-mono">I design solutions with a systematic, scalable approach.
+            If that’s what you’re looking for,</span>
+          <h3 className="text-4xl font-bold text-white">Let's start a new process.</h3>
         </div>
 
         <div className="glass-morphism rounded-2xl p-8 lg:p-12">

@@ -5,7 +5,22 @@ import { portfolioData } from '../data'
 export const Hero = () => {
   const { name, description, role, experience, location, status } = portfolioData.profile
   const baseUrl = import.meta.env.BASE_URL
+  const handleNavClick = (e, href) => {
+    e.preventDefault()
+    const target = document.querySelector(href)
 
+    if (target) {
+      gsap.to(window, {
+        duration: 1,
+        scrollTo: {
+          y: target,
+          autoKill: true,
+          offsetY: 0,
+        },
+        ease: 'power2.inOut',
+      })
+    }
+  }
   useEffect(() => {
     // Delay to ensure DOM is ready
     const timer = setTimeout(() => {
@@ -72,7 +87,7 @@ export const Hero = () => {
           onUpdate() {
             const element = document.querySelector('#profile-code-text')
             if (!element) return
-            
+
             const codeLines = [
               `const profile = {`,
               `  role: '${role}',`,
@@ -85,22 +100,21 @@ export const Hero = () => {
             const progress = this.progress()
             const charCount = Math.floor(progress * fullText.length)
             const displayText = fullText.substring(0, charCount)
-            
+
             // Build HTML with colors
             let html = displayText
               .replace(/const/g, '<span style="color:#ffe66b">const</span>')
               .replace(/profile/g, '<span style="color:#2773c9">profile</span>')
               .replace(/{/g, '<span style="color:#3993d3">{</span>')
               .replace(/}/g, '<span style="color:#3993d3">}</span>')
-              
               .replace(/\n/g, '<br />')
-            
+
             element.innerHTML = html
           },
           onComplete() {
             const element = document.querySelector('#profile-code-text')
             if (!element) return
-            
+
             const codeLines = [
               `const profile = {`,
               `  role: '${role}',`,
@@ -110,13 +124,15 @@ export const Hero = () => {
               `};`,
             ]
             const fullText = codeLines.join('\n')
-            
+
             // Build final HTML with colors
             let html = fullText
               .replace(/const/g, '<span style="color:#f1d02b">const</span>')
               .replace(/profile/g, '<span style="color:#2773c9">profile</span>')
+              .replace(/{/g, '<span style="color:#3993d3">{</span>')
+              .replace(/}/g, '<span style="color:#3993d3">}</span>')
               .replace(/\n/g, '<br />')
-            
+
             element.innerHTML = html
           },
         }, 4.7)
@@ -126,7 +142,7 @@ export const Hero = () => {
 
       // Animate CTA buttons after typing completes
       tl.from(
-        '#hero .flex.gap-4 a',
+        '#cta',
         {
           opacity: 0,
           y: 30,
@@ -134,7 +150,7 @@ export const Hero = () => {
           ease: 'power2.out',
           duration: 0.6,
         },
-        '-=0.2'
+        6
       )
     }, 100)
 
@@ -211,15 +227,17 @@ export const Hero = () => {
         </div>
 
         {/* CTA Buttons */}
-        <div className="mt-12 flex flex-wrap gap-4 font-mono">
+        <div className="mt-12 flex flex-wrap gap-4 font-mono" id='cta'>
           <a
             href="#work"
+            onClick={(e) => handleNavClick(e, "#work")}
             className="px-6 py-3 bg-primary/10 border border-primary/20 text-primary hover:bg-primary hover:text-background-dark transition-all rounded text-sm font-bold flex items-center gap-2"
           >
             <span className="material-symbols-outlined text-sm">visibility</span> VIEW_PROJECTS
           </a>
           <a
             href="#contact"
+            onClick={(e) => handleNavClick(e, "#contact")}
             className="px-6 py-3 bg-white/5 border border-white/10 text-slate-300 hover:border-white/30 transition-all rounded text-sm font-bold flex items-center gap-2"
           >
             <span className="material-symbols-outlined text-sm">mail</span> CONTACT_ME
