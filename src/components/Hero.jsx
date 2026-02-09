@@ -106,6 +106,10 @@ export const Hero = () => {
               .replace(/const/g, '<span style="color:#ffe66b">const</span>')
               .replace(/profile/g, '<span style="color:#2773c9">profile</span>')
               .replace(/{/g, '<span style="color:#3993d3">{</span>')
+              .replace(/'Technical Lead & Senior Web Developer'/g, `<span style="color:#f67e29">'${role}'</span>`)
+              .replace(/'10\+ Years'/g, `<span style="color:#f67e29">'${experience}'</span>`)
+              .replace(/'Global \/ Remote'/g, `<span style="color:#f67e29">'${location}'</span>`)
+              .replace(/'Open for collaboration'/g, `<span style="color:#f67e29">'${status}'</span>`)
               .replace(/}/g, '<span style="color:#3993d3">}</span>')
               .replace(/\n/g, '<br />')
 
@@ -130,6 +134,10 @@ export const Hero = () => {
               .replace(/const/g, '<span style="color:#f1d02b">const</span>')
               .replace(/profile/g, '<span style="color:#2773c9">profile</span>')
               .replace(/{/g, '<span style="color:#3993d3">{</span>')
+              .replace(/'Technical Lead & Senior Web Developer'/g, `<span style="color:#f67e29">'${role}'</span>`)
+              .replace(/'10\+ Years'/g, `<span style="color:#f67e29">'${experience}'</span>`)
+              .replace(/'Global \/ Remote'/g, `<span style="color:#f67e29">'${location}'</span>`)
+              .replace(/'Open for collaboration'/g, `<span style="color:#f67e29">'${status}'</span>`)
               .replace(/}/g, '<span style="color:#3993d3">}</span>')
               .replace(/\n/g, '<br />')
 
